@@ -28,8 +28,13 @@ export default function Footer() {
           <Link href="/terms" className="hover:text-slate-300 transition">{t.links.terms}</Link>
         </div>
       </div>
-      <div className="max-w-6xl mx-auto mt-6 pt-6 border-t border-white/5 text-sm text-slate-500 text-center">
-        <p>{t.copyright.replace('{year}', String(new Date().getFullYear()))}</p>
+      <div className="max-w-6xl mx-auto border-t border-white/5 mt-16 pt-8 text-center">
+        <p className="text-slate-400 text-sm mb-2">
+          {t.copyright.replace('{year}', new Date().getFullYear().toString())}
+        </p>
+        <p className="text-slate-500 text-xs max-w-2xl mx-auto">
+          {t.authorityLine}
+        </p>
       </div>
     </footer>
   )

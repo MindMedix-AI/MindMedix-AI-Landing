@@ -37,9 +37,17 @@ export default function Hero() {
             {t.headlineHighlight}
           </span>
         </h1>
-        <p className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+        <p className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mb-8 leading-relaxed">
           {t.subheadline}
         </p>
+
+        {/* Authority Paragraph */}
+        <div className="max-w-3xl mx-auto mb-10 p-4 rounded-xl bg-gradient-to-r from-[#2d8cff]/5 via-[#2d8cff]/10 to-[#2d8cff]/5 border border-[#2d8cff]/10">
+          <p className="text-slate-300 text-sm md:text-base leading-relaxed">
+            {t.authority}
+          </p>
+        </div>
+
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <Link
             href="#contact"

@@ -1,167 +1,236 @@
-# MindMedix AI — Hospital Operations Intelligence Landing Page
+# MindMedix AI — Hospital Operations Intelligence
 
-Official landing page for **MindMedix AI**, an early‑stage European deep‑tech startup building an **AI‑powered predictive workforce and hospital operations intelligence platform**.
+<div align="center">
 
-- **Domain:** `https://mindmedixai.health`  
-- **Location:** Ancona, Italy  
-- **Sector:** Healthcare AI / Hospital Operations Intelligence  
-- **Audience:** Hospital administrators, public health institutions, investors, innovation partners
+![MindMedix AI](public/logo.png)
 
-The goal of this repository is to provide an **institutional‑grade, production‑ready landing page** suitable for hospitals, public authorities and EU‑level stakeholders.
+**Predictive Workforce & Hospital Operations Intelligence Platform**
 
----
+[![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3-38bdf8?logo=tailwindcss)](https://tailwindcss.com/)
+[![License](https://img.shields.io/badge/License-Private-red)](LICENSE)
 
-## 1. Features
+[mindmedixai.health](https://mindmedixai.health) · Ancona, Italy · European Healthcare AI
 
-- **Bilingual experience (IT / EN)**
-  - Italian as default (first market)
-  - Language switcher in the header with flag indicators
-- **Clear narrative for hospitals**
-  - Problem → Solution → How it Works → Value → Trust → About → Contact
-  - Strong focus on workforce stability, burnout risk, and operational resilience
-- **Enterprise design**
-  - Minimal, dark blue / healthcare‑oriented palette
-  - IBM Plex Sans typography
-  - Responsive layout optimised for desktop, tablet, and mobile
-- **Compliance‑oriented**
-  - Dedicated **Privacy Policy** (`/privacy`)
-  - Dedicated **Terms & Conditions** (`/terms`)
-  - Cookie consent banner for essential cookies
-  - Copy aligned with **GDPR**, **privacy‑first**, and **human‑in‑the‑loop AI**
-- **Operational contact flow**
-  - Contact form with backend endpoint (`/api/contact`)
-  - Email delivery via **Resend** (configurable)
+</div>
 
 ---
 
-## 2. Tech Stack
+## Overview
 
-- **Framework:** Next.js 14 (App Router)
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS
-- **Fonts:** IBM Plex Sans (via `next/font`)
-- **Email backend:** [Resend](https://resend.com) (API integration)
+This repository contains the official institutional landing page for **MindMedix AI**, a European deep-tech healthcare AI initiative developing predictive operational intelligence infrastructure for hospitals and healthcare systems.
 
-The codebase is structured to be easy to maintain and align with modern Next.js practices.
-
----
-
-## 3. Project Structure
-
-- `src/app/`
-  - `layout.tsx` – global layout, fonts, metadata, JSON‑LD schema, cookie banner, language provider
-  - `page.tsx` – main landing page composition
-  - `privacy/` – Privacy Policy page (IT/EN)
-  - `terms/` – Terms & Conditions page (IT/EN)
-  - `api/contact/route.ts` – contact form API endpoint (Resend)
-- `src/components/`
-  - `Header`, `Hero`, `Problem`, `Solution`, `HowItWorks`, `ValueProposition`, `Trust`, `About`, `Contact`, `Footer`
-  - `SkipLink` – accessibility helper for keyboard users
-  - `CookieBanner` – essential cookie consent banner
-  - `JsonLd` – Organization schema for search engines
-- `src/lib/`
-  - `translations.ts` – all IT/EN UI copy
-  - `legal.ts` – legal copy (Privacy, Terms) for both languages
+The landing page is designed to establish institutional credibility with:
+- Hospital directors and administrators
+- Healthcare systems and regional authorities
+- Strategic innovation partners
+- Investors and public institutions
 
 ---
 
-## 4. Getting Started (Local Development)
+## Features
 
-```bash
-# Install dependencies
-npm install
+### Institutional Design
+- Enterprise-grade, minimal dark-blue aesthetic
+- IBM Plex Sans typography for professional readability
+- Fully responsive — desktop, tablet, and mobile
+- Accessibility-first: WCAG 2.1 AA baseline, skip-to-content, semantic HTML
 
-# Run development server
-npm run dev
+### Bilingual Experience (IT / EN)
+- Italian as default (primary market)
+- English via header language switcher
+- All copy managed centrally in `src/lib/translations.ts`
+
+### Contact & Lead Management
+- Institutional contact form with interest classification
+- **Email delivery** via [Resend](https://resend.com)
+- **Persistent lead storage** via SQLite (`data/contacts.db`)
+- Every submission is saved to the database before email is sent — no lead is ever lost
+
+### Compliance & Trust
+- GDPR-aware architecture
+- Dedicated Privacy Policy (`/privacy`) and Terms & Conditions (`/terms`)
+- Cookie consent banner
+- Human-in-the-loop AI positioning
+- "Not a medical device" declaration
+
+### SEO & Performance
+- JSON-LD Organization schema
+- Semantic HTML structure
+- Optimised fonts via `next/font`
+- Static generation where possible
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | [Next.js 14](https://nextjs.org/) (App Router) |
+| Language | [TypeScript 5](https://www.typescriptlang.org/) |
+| Styling | [Tailwind CSS 3](https://tailwindcss.com/) |
+| Email | [Resend](https://resend.com/) |
+| Database | [SQLite](https://www.sqlite.org/) via [better-sqlite3](https://github.com/WiseLibs/better-sqlite3) |
+| Font | IBM Plex Sans via `next/font` |
+
+---
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── layout.tsx              # Global layout, fonts, metadata, JSON-LD
+│   ├── page.tsx                # Main landing page composition
+│   ├── privacy/page.tsx        # Privacy Policy (IT/EN)
+│   ├── terms/page.tsx          # Terms & Conditions (IT/EN)
+│   └── api/
+│       └── contact/route.ts    # Contact form API (DB + Resend)
+├── components/
+│   ├── Header.tsx              # Navigation + language switcher
+│   ├── Hero.tsx                # Hero section with authority paragraph
+│   ├── WhoWeServe.tsx          # Target audience micro-section
+│   ├── Problem.tsx             # Problem statement
+│   ├── Solution.tsx            # Solution + dashboard visualization
+│   ├── HowItWorks.tsx          # Platform pipeline
+│   ├── ValueProposition.tsx    # Institutional outcomes
+│   ├── Trust.tsx               # Compliance & trust pillars
+│   ├── About.tsx               # About + founder credibility block
+│   ├── Contact.tsx             # Contact form
+│   ├── Footer.tsx              # Footer + authority line
+│   ├── CookieBanner.tsx        # GDPR cookie consent
+│   ├── JsonLd.tsx              # Organization schema
+│   └── SkipLink.tsx            # Accessibility helper
+├── lib/
+│   ├── translations.ts         # All IT/EN UI copy (single source of truth)
+│   ├── legal.ts                # Legal copy (Privacy, Terms) — both languages
+│   └── db.ts                   # SQLite database module
+└── context/
+    └── LanguageContext.tsx     # Language state provider
+data/
+└── contacts.db                 # SQLite database (gitignored — never commit)
 ```
 
-Open `http://localhost:3000` in your browser.
-
-The default language is **Italian**; switch to English via the header toggle.
-
 ---
 
-## 5. Contact Form Backend (Resend)
+## Getting Started
 
-The contact form posts to `/api/contact`, which sends an email via [Resend](https://resend.com).
+### Prerequisites
+- Node.js 18+
+- npm
 
-### 5.1 Configure Resend
-
-1. Sign up at `https://resend.com` and create an API key  
-2. Verify the domain `mindmedixai.health` at `https://resend.com/domains`  
-3. Create `.env.local` in the project root:
+### Installation
 
 ```bash
+# Clone the repository
+git clone git@github.com:MindMedix-AI/MindMedix-AI-Landing.git
+cd MindMedix-AI-Landing
+
+# Install dependencies
+npm install
+```
+
+### Environment Setup
+
+Create a `.env.local` file in the project root:
+
+```bash
+# Required: Resend API key for email notifications
+# Get yours at https://resend.com/api-keys
 RESEND_API_KEY=re_xxxxxxxxxxxx
+
+# Email destination
 EMAIL_TO=contact@mindmedixai.health
-# Optional, requires verified domain:
+
+# Optional: custom sender (requires verified domain at resend.com/domains)
 # EMAIL_FROM="MindMedix AI <noreply@mindmedixai.health>"
 ```
 
-- If `RESEND_API_KEY` is **not** set, the API returns a friendly error and the UI shows an error banner suggesting contacting `contact@mindmedixai.health` directly.
+> **Note:** If `RESEND_API_KEY` is not set, the contact form still saves submissions to the database — only email notifications are skipped.
 
----
+### Development
 
-## 6. Accessibility & Compliance
+```bash
+npm run dev
+```
 
-This landing page aims to be a solid baseline for **WCAG 2.1 AA** alignment:
+Open [http://localhost:3000](http://localhost:3000). The default language is **Italian**; switch to English via the header toggle.
 
-- Skip‑to‑content link for keyboard and screen‑reader users
-- Visible focus outlines on interactive elements
-- Semantic sections (`<main>`, `<section>`, headings) for assistive technologies
-- Italian as default `lang` with English alternative
-
-Compliance‑related pages:
-
-- `/privacy` – Privacy Policy (GDPR‑aware, bilingual)
-- `/terms` – Terms & Conditions (governed by Italian law, Ancona jurisdiction)
-
-> **Note:** The legal texts in this repository are **templates** and should be reviewed by qualified legal counsel before production use.
-
----
-
-## 7. Build & Deployment
+### Production Build
 
 ```bash
 npm run build
 npm start
 ```
 
-You can deploy to:
+---
 
-- **Vercel** (recommended for Next.js)
-- Any Node.js host capable of running `next start`
+## Contact Form & Database
 
-### 7.1 Environment variables in production
+The contact form posts to `/api/contact`, which:
 
-Set at least:
+1. **Saves the submission to SQLite** (`data/contacts.db`) — always, regardless of email status
+2. **Sends an email notification** via Resend to `EMAIL_TO`
 
-- `RESEND_API_KEY`
-- `EMAIL_TO` (e.g. `contact@mindmedixai.health`)
-- `EMAIL_FROM` (optional but recommended once domain is verified)
+### Viewing Stored Contacts
 
-The production domain should be configured as:
+```bash
+# View all submissions
+sqlite3 data/contacts.db "SELECT id, name, email, organization, interest, created_at FROM contacts;"
 
-- `https://mindmedixai.health`
+# Count total submissions
+sqlite3 data/contacts.db "SELECT COUNT(*) FROM contacts;"
+```
+
+> ⚠️ The `data/` directory is gitignored. **Never commit the database file** — it contains personal data subject to GDPR.
 
 ---
 
-## 8. Roadmap (suggested)
+## Deployment
 
-This repository covers the core landing page and institutional framing. Suggested next steps:
+### Recommended: Railway (supports SQLite persistent disk)
 
-- **Add real hospital / partner / accelerator logos** once available  
-- **Add team / leadership profiles** with bios and photos  
-- **Add case studies / pilot outcomes** (when pilots are completed)  
-- **Integrate analytics** (privacy‑respecting, e.g. Plausible or Matomo) with proper consent
+1. Push this repository to GitHub
+2. Connect to [Railway](https://railway.app)
+3. Add environment variables (`RESEND_API_KEY`, `EMAIL_TO`)
+4. Deploy — Railway handles the rest
+
+### Alternative: Vercel (requires database migration)
+
+Vercel serverless functions do not support persistent disk. To deploy on Vercel, migrate the SQLite database to a cloud provider (e.g., [Supabase](https://supabase.com) — free tier available).
 
 ---
 
-## 9. Contact
+## Compliance Notes
 
-For questions about this landing page or the MindMedix AI initiative:
+- This landing page is **not a medical device** and does not provide clinical decision support
+- Legal pages (`/privacy`, `/terms`) are templates — review with qualified legal counsel before production use
+- GDPR: contact form data is stored locally; no third-party data sharing
 
-- **Email:** `contact@mindmedixai.health`  
-- **Location:** Ancona, Italy
+---
 
-MindMedix AI aspires to be a **trusted, European, hospital‑grade AI partner** for workforce and operations intelligence.
+## Roadmap
+
+- [ ] Add real hospital / partner / accelerator logos once available
+- [ ] Add team and leadership profiles with bios
+- [ ] Add case studies and pilot outcomes (post-pilot)
+- [ ] Integrate privacy-respecting analytics (Plausible or Matomo)
+- [ ] Migrate database to cloud (Supabase) for multi-instance deployment
+
+---
+
+## Contact
+
+**MindMedix AI**
+- Website: [mindmedixai.health](https://mindmedixai.health)
+- Email: [contact@mindmedixai.health](mailto:contact@mindmedixai.health)
+- Location: Ancona, Italy
+
+---
+
+<div align="center">
+
+*MindMedix AI is a European healthcare AI initiative developing predictive operational intelligence infrastructure for hospitals and healthcare systems.*
+
+</div>

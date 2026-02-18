@@ -9,12 +9,15 @@ import About from '@/components/About'
 import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
 
+import WhoWeServe from '@/components/WhoWeServe'
+
 export default function Home() {
   return (
     <>
       <Header />
       <main id="main-content" tabIndex={-1}>
         <Hero />
+        <WhoWeServe />
         <Problem />
         <Solution />
         <HowItWorks />

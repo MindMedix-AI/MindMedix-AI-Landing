@@ -50,8 +50,7 @@ export default function Solution() {
                   {t.dashboardMetrics.map((label, i) => (
                     <div key={i} className="p-3 rounded-lg bg-[#0a1929]/80 border border-white/5">
                       <p className="text-xs text-slate-500 mb-1">{label}</p>
-                      <p className="text-lg font-semibold text-white">94%</p>
-                      <div className="h-1 mt-2 rounded-full bg-[#2d8cff]/30 overflow-hidden">
+                      <div className="h-1.5 mt-2 rounded-full bg-[#2d8cff]/30 overflow-hidden">
                         <div className="h-full w-4/5 bg-[#2d8cff] rounded-full" />
                       </div>
                     </div>
@@ -59,13 +58,12 @@ export default function Solution() {
                 </div>
                 <div className="flex-1 rounded-lg bg-[#0a1929]/60 border border-white/5 p-4">
                   <div className="space-y-3">
-                    {[65, 78, 45, 92, 58].map((val, i) => (
+                    {[1, 2, 3, 4, 5].map((i) => (
                       <div key={i} className="flex items-center gap-3">
-                        <span className="text-xs text-slate-500 w-20">Dept {i + 1}</span>
+                        <span className="text-xs text-slate-500 w-20">Dept {i}</span>
                         <div className="flex-1 h-2 rounded-full bg-white/5 overflow-hidden">
-                          <div className="h-full rounded-full bg-[#2d8cff]/60" style={{ width: `${val}%` }} />
+                          <div className="h-full rounded-full bg-[#2d8cff]/60" style={{ width: `${60 + (i * 5)}%` }} />
                         </div>
-                        <span className="text-xs text-slate-400">{val}%</span>
                       </div>
                     ))}
                   </div>

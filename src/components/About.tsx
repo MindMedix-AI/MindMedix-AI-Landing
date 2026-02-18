@@ -17,6 +17,17 @@ export default function About() {
           {t.title}
         </h2>
         <div className="space-y-6 text-slate-400 leading-relaxed">
+          {/* Founder/Credibility Block */}
+          <div className="mb-8 p-6 rounded-xl bg-gradient-to-br from-[#2d8cff]/10 to-transparent border border-[#2d8cff]/20">
+            <h3 className="text-white font-semibold mb-3 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2d8cff]" />
+              {t.founderBlock.label}
+            </h3>
+            <p className="text-slate-300">
+              {t.founderBlock.text}
+            </p>
+          </div>
+
           <p className="text-lg">
             {t.p1}
           </p>
