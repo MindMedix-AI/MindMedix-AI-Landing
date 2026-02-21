@@ -10,7 +10,14 @@ const TO_EMAIL = process.env.EMAIL_TO || 'contact@mindmedixai.health'
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const { name, email, organization, interest, message } = body
+    const { name, email, organization, interest, message, website } = body
+
+    // 🛡️ Honeypot check: If the hidden 'website' field is filled, it's a bot.
+    // We return 200 (Success) so the bot thinks it succeeded, but we do nothing.
+    if (website) {
+      console.warn('Bot submission detected via honeypot.')
+      return NextResponse.json({ success: true, id: 'bot_blocked' })
+    }
 
     if (!name || !email) {
       return NextResponse.json(

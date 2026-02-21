@@ -13,20 +13,17 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#0a1929]/90 backdrop-blur-md border-b border-white/5 overflow-visible">
       <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between overflow-visible">
-        <Link href="/" className="flex items-center shrink-0 overflow-visible" style={{ height: 48 }}>
+        <Link href="/" className="flex items-center shrink-0" style={{ height: 40 }}>
           <img
             src="/logo.png"
             alt="MindMedix AI"
-            width={360}
-            height={120}
+            width={180}
+            height={40}
             loading="eager"
             style={{
-              height: '40px',
+              height: '100%',
               width: 'auto',
               objectFit: 'contain',
-              objectPosition: 'left center',
-              transform: 'scale(3.2)',
-              transformOrigin: 'left center',
             }}
           />
         </Link>

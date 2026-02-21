@@ -15,6 +15,7 @@ export default function Contact() {
     organization: '',
     interest: 'pilot',
     message: '',
+    website: '', // Honeypot field for bot protection
   })
 
   const { locale } = useLanguage()
@@ -162,6 +163,19 @@ export default function Contact() {
                 placeholder={form.messagePlaceholder}
               />
             </div>
+
+            {/* Honeypot field - hidden from users, visible to bots */}
+            <div className="hidden" aria-hidden="true">
+              <input
+                type="text"
+                name="website"
+                value={formData.website}
+                onChange={handleChange}
+                tabIndex={-1}
+                autoComplete="off"
+              />
+            </div>
+
             {error && (
               <p className="text-sm text-red-400 bg-red-500/10 rounded-lg px-4 py-3">
                 {error}
