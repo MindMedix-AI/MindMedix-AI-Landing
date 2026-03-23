@@ -32,23 +32,13 @@ export default function Hero() {
           {t.label}
         </p>
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight text-white leading-[1.1] mb-6">
-          {t.headline}{' '}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400">
-            {t.headlineHighlight}
-          </span>
+          {t.headline}
         </h1>
         <p className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mb-8 leading-relaxed">
           {t.subheadline}
         </p>
 
-        {/* Authority Paragraph */}
-        <div className="max-w-3xl mx-auto mb-10 p-4 rounded-xl bg-gradient-to-r from-[#2d8cff]/5 via-[#2d8cff]/10 to-[#2d8cff]/5 border border-[#2d8cff]/10">
-          <p className="text-slate-300 text-sm md:text-base leading-relaxed">
-            {t.authority}
-          </p>
-        </div>
-
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
           <Link
             href="#contact"
             className="w-full sm:w-auto px-8 py-4 text-base font-medium bg-[#2d8cff] text-white rounded-lg hover:bg-[#2472d9] transition shadow-lg shadow-[#2d8cff]/20"
@@ -56,13 +46,18 @@ export default function Hero() {
             {t.ctaPilot}
           </Link>
           <Link
-            href="#contact"
+            href="#solution"
             className="w-full sm:w-auto px-8 py-4 text-base font-medium border border-slate-600 text-slate-300 rounded-lg hover:border-slate-500 hover:bg-white/5 transition"
           >
             {t.ctaPartners}
           </Link>
         </div>
-        <p className="mt-8 text-sm text-slate-500">
+
+        <p className="text-slate-400 text-sm font-medium tracking-wide uppercase">
+          {t.authority}
+        </p>
+
+        <p className="mt-12 text-sm text-slate-500">
           {t.location}
         </p>
       </div>

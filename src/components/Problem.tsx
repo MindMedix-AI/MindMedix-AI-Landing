@@ -20,7 +20,7 @@ export default function Problem() {
           {t.intro}
         </p>
         <div className="grid sm:grid-cols-2 gap-6">
-          {t.challenges.map((item, i) => (
+          {t.challenges.map((item: any, i: number) => (
             <div
               key={i}
               className="p-6 rounded-xl border border-white/5 bg-[#0a1929]/50 hover:border-[#2d8cff]/20 transition"
@@ -30,6 +30,9 @@ export default function Problem() {
             </div>
           ))}
         </div>
+        <p className="mt-12 text-xs text-slate-500 max-w-2xl italic leading-relaxed">
+          {(t as any).sources}
+        </p>
       </div>
     </section>
   )

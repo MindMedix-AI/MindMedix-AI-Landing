@@ -37,39 +37,23 @@ export default function Solution() {
               ))}
             </div>
           </div>
-          <div className="relative">
-            <div className="aspect-[4/3] rounded-xl border border-white/10 bg-[#0d2137] overflow-hidden relative">
-              <div className="absolute inset-0 p-6 flex flex-col">
-                <div className="flex items-center gap-2 mb-6">
-                  <div className="w-3 h-3 rounded-full bg-red-500/80" />
-                  <div className="w-3 h-3 rounded-full bg-amber-500/80" />
-                  <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
-                  <span className="ml-4 text-xs text-slate-500">{t.dashboardTitle}</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {(t as any).realStatCards.map((card: any, i: number) => (
+              <div
+                key={i}
+                className="p-6 rounded-xl border border-white/10 bg-[#0d2137] flex flex-col justify-center text-center sm:text-left hover:border-[#2d8cff]/30 transition group"
+              >
+                <div className="text-3xl font-bold text-[#2d8cff] mb-2 group-hover:scale-105 transition-transform duration-300">
+                  {card.value}
                 </div>
-                <div className="grid grid-cols-3 gap-4 mb-6">
-                  {t.dashboardMetrics.map((label, i) => (
-                    <div key={i} className="p-3 rounded-lg bg-[#0a1929]/80 border border-white/5">
-                      <p className="text-xs text-slate-500 mb-1">{label}</p>
-                      <div className="h-1.5 mt-2 rounded-full bg-[#2d8cff]/30 overflow-hidden">
-                        <div className="h-full w-4/5 bg-[#2d8cff] rounded-full" />
-                      </div>
-                    </div>
-                  ))}
+                <div className="text-sm font-semibold text-white mb-1">
+                  {card.label}
                 </div>
-                <div className="flex-1 rounded-lg bg-[#0a1929]/60 border border-white/5 p-4">
-                  <div className="space-y-3">
-                    {[1, 2, 3, 4, 5].map((i) => (
-                      <div key={i} className="flex items-center gap-3">
-                        <span className="text-xs text-slate-500 w-20">Dept {i}</span>
-                        <div className="flex-1 h-2 rounded-full bg-white/5 overflow-hidden">
-                          <div className="h-full rounded-full bg-[#2d8cff]/60" style={{ width: `${60 + (i * 5)}%` }} />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                <div className="text-xs text-slate-500">
+                  {card.sublabel}
                 </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
