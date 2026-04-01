@@ -39,9 +39,8 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
+  // Matcher ignoring `/_next/` and `/api/`
   matcher: [
-    // Skip all internal paths (_next)
-    '/((?!_next).*)',
-    // Optional: only run on root (or specific) paths
+    '/((?!api|_next/static|_next/image|favicon.ico|logo.png|MindMedix|mindmedix).*)',
   ],
 }

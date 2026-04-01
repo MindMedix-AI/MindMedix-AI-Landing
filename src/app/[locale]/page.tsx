@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Header from '@/components/Header'
 import Hero from '@/components/Hero'
 import ProofBar from '@/components/ProofBar'
@@ -14,7 +15,22 @@ import PilotOffer from '@/components/PilotOffer'
 import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
 
-export default function Home() {
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+  const isEn = locale === 'en'
+  return {
+    title: isEn 
+      ? 'MindMedix AI | Workforce Intelligence for European Hospitals' 
+      : 'MindMedix AI | Workforce Intelligence Ospedaliera | Sassi Hamdi',
+    description: isEn
+      ? 'Operational AI for predictive hospital operations. Forecast staffing shortages and operational stress 3 weeks in advance. Validated on 34 real-world hospital wards.'
+      : 'Intelligenza operativa predittiva per gli ospedali europei. Prevedi carenze di personale e stress operativo con 3 settimane di anticipo.',
+    alternates: {
+      canonical: `/${locale}`,
+    },
+  }
+}
+
+export default function Home({ params: { locale } }: { params: { locale: string } }) {
   return (
     <>
       <Header />
