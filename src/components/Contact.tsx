@@ -1,11 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import { useLanguage } from '@/context/LanguageContext'
 import { translations } from '@/lib/translations'
 
-export default function Contact() {
+function ContactForm() {
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -17,6 +18,15 @@ export default function Contact() {
     message: '',
     website: '', // Honeypot field for bot protection
   })
+
+  const searchParams = useSearchParams()
+  const request = searchParams.get('request')
+
+  useEffect(() => {
+    if (request === 'paper') {
+      setFormData(prev => ({ ...prev, interest: 'paper' }))
+    }
+  }, [request])
 
   const { locale } = useLanguage()
   const t = translations[locale].contact
@@ -148,6 +158,7 @@ export default function Contact() {
                 <option value="pilot">{form.interestOptions.pilot}</option>
                 <option value="partnership">{form.interestOptions.partnership}</option>
                 <option value="investment">{form.interestOptions.investment}</option>
+                <option value="paper">{form.interestOptions.paper}</option>
                 <option value="other">{form.interestOptions.other}</option>
               </select>
             </div>
@@ -203,5 +214,13 @@ export default function Contact() {
         </div>
       </div>
     </section>
+  )
+}
+
+export default function Contact() {
+  return (
+    <Suspense fallback={<div className="py-24 bg-[#0d2137]/30 text-center text-slate-500">Loading form...</div>}>
+      <ContactForm />
+    </Suspense>
   )
 }

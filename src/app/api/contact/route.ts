@@ -36,6 +36,7 @@ export async function POST(request: Request) {
         pilot: 'Hospital pilot program',
         partnership: 'Strategic partnership',
         investment: 'Investment / Funding',
+        paper: 'Validation Paper Request',
         other: 'General inquiry',
       }
 
