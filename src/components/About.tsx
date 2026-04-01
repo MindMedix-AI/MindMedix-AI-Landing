@@ -24,7 +24,7 @@ export default function About() {
               {t.founderBlock.label}
             </h3>
             <p className="text-slate-300 mb-4 italic">
-              "{t.founderBlock.text}"
+              &quot;{t.founderBlock.text}&quot;
             </p>
             <div className="flex items-center justify-between pt-6 border-t border-white/5">
               <div className="flex items-center gap-4">
