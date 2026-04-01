@@ -11,6 +11,9 @@ export async function generateMetadata({ params: { locale } }: { params: { local
     description: isEn 
       ? 'Official profile and vision of Sassi Hamdi, Founder & CEO of MindMedix AI. Specialized in hospital operations intelligence and workforce resilience.' 
       : 'Profilo ufficiale e visione di Sassi Hamdi, Founder & CEO di MindMedix AI. Specializzato in intelligenza operativa sanitaria e resilienza della forza lavoro.',
+    alternates: {
+      canonical: `/${locale}/founder`,
+    },
   }
 }
 

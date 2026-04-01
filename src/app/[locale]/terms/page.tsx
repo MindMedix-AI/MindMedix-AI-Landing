@@ -12,6 +12,9 @@ export async function generateMetadata({ params: { locale } }: { params: { local
     description: isEn 
       ? 'Official terms of service for MindMedix AI hospital workforce intelligence platform.' 
       : 'Termini e condizioni ufficiali della piattaforma MindMedix AI per l\'intelligenza della forza lavoro ospedaliera.',
+    alternates: {
+      canonical: `/${locale}/terms`,
+    },
   }
 }
 

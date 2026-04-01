@@ -12,6 +12,9 @@ export async function generateMetadata({ params: { locale } }: { params: { local
     description: isEn 
       ? 'Privacy and data protection policy at MindMedix AI. In compliance with GDPR Article 89 for healthcare operations.' 
       : 'Informativa sulla privacy e protezione dei dati di MindMedix AI. In conformità con il GDPR Articolo 89 per l\'intelligenza operativa sanitaria.',
+    alternates: {
+      canonical: `/${locale}/privacy`,
+    },
   }
 }
 
