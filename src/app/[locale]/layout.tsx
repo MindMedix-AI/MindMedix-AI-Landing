@@ -51,6 +51,15 @@ export async function generateMetadata({ params: { locale } }: { params: { local
       title: siteTitle,
       creator: '@sassihamdi',
     },
+    alternates: {
+      canonical: isEn ? '/en' : '/it',
+      languages: {
+        'it-IT': '/it',
+        'en-US': '/en',
+        'en-GB': '/en',
+        'x-default': '/it',
+      },
+    },
     robots: {
       index: true,
       follow: true,
