@@ -1,15 +1,10 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useState, useTransition } from 'react'
+import { useRouter, usePathname, useParams } from 'next/navigation'
 import type { Locale } from '@/lib/translations'
 
 const STORAGE_KEY = 'mindmedix-lang'
-
-function getInitialLocale(): Locale {
-  if (typeof window === 'undefined') return 'it'
-  const stored = localStorage.getItem(STORAGE_KEY) as Locale | null
-  return stored === 'en' || stored === 'it' ? stored : 'it'
-}
 
 interface LanguageContextType {
   locale: Locale
@@ -18,23 +13,38 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | null>(null)
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>('it')
-  const [mounted, setMounted] = useState(false)
+export function LanguageProvider({ 
+  children,
+  initialLocale 
+}: { 
+  children: React.ReactNode
+  initialLocale: Locale
+}) {
+  const [locale, setLocaleState] = useState<Locale>(initialLocale)
+  const [isPending, startTransition] = useTransition()
+  const router = useRouter()
+  const pathname = usePathname()
+  const params = useParams()
 
   useEffect(() => {
-    setLocaleState(getInitialLocale())
-    setMounted(true)
-  }, [])
-
-  useEffect(() => {
-    if (!mounted) return
-    localStorage.setItem(STORAGE_KEY, locale)
-    document.documentElement.lang = locale === 'it' ? 'it' : 'en'
-  }, [locale, mounted])
+    // Keep internal state in sync with URL params if they change
+    if (params?.locale && (params.locale === 'it' || params.locale === 'en')) {
+      setLocaleState(params.locale as Locale)
+    }
+  }, [params?.locale])
 
   const setLocale = (newLocale: Locale) => {
-    setLocaleState(newLocale)
+    if (newLocale === locale) return
+    
+    startTransition(() => {
+      setLocaleState(newLocale)
+      localStorage.setItem(STORAGE_KEY, newLocale)
+      
+      // Update URL path
+      const segments = pathname.split('/')
+      segments[1] = newLocale
+      router.push(segments.join('/'))
+    })
   }
 
   return (
