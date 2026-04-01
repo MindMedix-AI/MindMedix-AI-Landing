@@ -1,0 +1,13 @@
+# nixpacks.toml
+# Force stable Nixpacks builder for MindMedix AI
+[phases.setup]
+nixPkgs = ["nodePackages.npm", "nodejs"]
+
+[phases.install]
+cmds = ["npm ci"]
+
+[phases.build]
+cmds = ["npm run build"]
+
+[start]
+cmd = "npm run start"

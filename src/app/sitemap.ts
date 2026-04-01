@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://mindmedixai.health'
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://mindmedixai.health'
   const lastModified = new Date()
 
   return [
