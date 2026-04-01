@@ -36,3 +36,12 @@ next-env.d.ts
 
 # Database (contains personal data — never commit)
 data/
+
+# Archives & Assets (Keep in history, ignore for build)
+*.pdf
+*.jpeg
+*.jpg
+*.pages
+*.png
+!public/*.png
+logoo.png
