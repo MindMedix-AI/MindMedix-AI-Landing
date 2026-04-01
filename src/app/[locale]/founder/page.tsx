@@ -1,14 +1,22 @@
-'use client'
-
+import type { Metadata } from 'next'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import { useLanguage } from '@/context/LanguageContext'
-import { translations } from '@/lib/translations'
+import { translations, Locale } from '@/lib/translations'
 import Link from 'next/link'
 
-export default function FounderPage() {
-  const { locale } = useLanguage()
-  const t = translations[locale].about
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+  const isEn = locale === 'en'
+  return {
+    title: isEn ? 'Sassi Hamdi | Founder & CEO, MindMedix AI' : 'Sassi Hamdi | Founder & CEO, MindMedix AI',
+    description: isEn 
+      ? 'Official profile and vision of Sassi Hamdi, Founder & CEO of MindMedix AI. Specialized in hospital operations intelligence and workforce resilience.' 
+      : 'Profilo ufficiale e visione di Sassi Hamdi, Founder & CEO di MindMedix AI. Specializzato in intelligenza operativa sanitaria e resilienza della forza lavoro.',
+  }
+}
+
+export default function FounderPage({ params: { locale } }: { params: { locale: string } }) {
+  const t = translations[locale as Locale].about
+  const isIt = locale === 'it'
   
   return (
     <>
@@ -17,7 +25,7 @@ export default function FounderPage() {
         <div className="max-w-4xl mx-auto">
           {/* Breadcrumbs */}
           <nav className="mb-12 flex items-center gap-2 text-sm text-slate-500">
-            <Link href="/" className="hover:text-[#2d8cff]">Home</Link>
+            <Link href={`/${locale}`} className="hover:text-[#2d8cff]">Home</Link>
             <span>/</span>
             <span className="text-slate-300">Founder</span>
           </nav>
@@ -74,7 +82,7 @@ export default function FounderPage() {
             <div className="md:col-span-2 space-y-12">
               <section>
                 <h2 className="text-3xl font-semibold text-white mb-6">
-                  {locale === 'it' ? 'Visione del Fondatore' : 'Founder\'s Vision'}
+                  {isIt ? 'Visione del Fondatore' : 'Founder\'s Vision'}
                 </h2>
                 <div className="prose prose-invert max-w-none text-slate-300 space-y-6 leading-relaxed text-lg">
                   <p>
@@ -91,10 +99,10 @@ export default function FounderPage() {
                   <svg className="w-5 h-5 text-[#2d8cff]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                   </svg>
-                  {locale === 'it' ? 'Il mio impegno per la privacy' : 'My commitment to privacy'}
+                  {isIt ? 'Il mio impegno per la privacy' : 'My commitment to privacy'}
                 </h3>
                 <p className="text-slate-400">
-                  {locale === 'it' 
+                  {isIt 
                     ? 'In qualità di ingegnere e fondatore, credo che l\'IA sanitaria debba essere costruita sul rispetto assoluto per i dati. MindMedix AI non tocca mai le cartelle cliniche. Lavoriamo solo con i flussi operativi per proteggere la forza lavoro e migliorare l\'efficienza, garantendo che ogni sistema sia conforme alle rigorose normative europee.'
                     : 'As an engineer and founder, I believe healthcare AI must be built on absolute respect for data. MindMedix AI never touches patient records. We work only with operational flows to protect the workforce and improve efficiency, ensuring every system complies with rigorous European regulations.'
                   }
@@ -107,7 +115,7 @@ export default function FounderPage() {
                   target="_blank"
                   className="inline-flex items-center gap-2 px-8 py-4 bg-white text-[#0a1929] rounded-xl font-semibold hover:bg-slate-100 transition-all text-lg shadow-xl shadow-white/5"
                 >
-                  {locale === 'it' ? 'Pianifica una call con il team' : 'Schedule a call with the team'}
+                  {isIt ? 'Pianifica una call con il team' : 'Schedule a call with the team'}
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>

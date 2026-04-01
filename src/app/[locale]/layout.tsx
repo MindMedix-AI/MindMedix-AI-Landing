@@ -13,33 +13,49 @@ const ibmPlex = IBM_Plex_Sans({
   display: 'swap',
 })
 
-export const metadata: Metadata = {
-  metadataBase: new URL('https://mindmedixai.health'),
-  title: 'MindMedix AI | Workforce Intelligence Ospedaliera | Sassi Hamdi',
-  description: 'MindMedix AI è la piattaforma di workforce intelligence fondata da Sassi Hamdi per gli ospedali europei. Prevedi carenze di personale e burnout con 3 settimane di anticipo. / Predictive workforce intelligence for European hospitals.',
-  keywords: 'MindMedix AI, Sassi Hamdi, AI ospedaliera, intelligenza forza lavoro, Hospital Operations AI, workforce intelligence, analytics predittivi sanità, burnout prevention healthcare, Italian healthcare AI',
-  icons: {
-    icon: '/logo.png',
-    apple: '/logo.png',
-  },
-  openGraph: {
-    title: 'MindMedix AI | Hospital Operations Intelligence | Sassi Hamdi',
-    description: 'Workforce intelligence platform for European hospitals. Founded by Sassi Hamdi. Privacy-first operational AI.',
-    type: 'website',
-    url: 'https://mindmedixai.health',
-    siteName: 'MindMedix AI',
-    locale: 'it_IT',
-    alternateLocale: 'en_GB',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'MindMedix AI | Hospital Operations Intelligence',
-    creator: '@sassihamdi',
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+  const isEn = locale === 'en'
+  
+  const siteTitle = isEn 
+    ? 'MindMedix AI | Workforce Intelligence for European Hospitals' 
+    : 'MindMedix AI | Workforce Intelligence Ospedaliera | Sassi Hamdi'
+  
+  const siteDesc = isEn
+    ? 'Predictive workforce intelligence for European hospitals. Forecast staffing shortages and burnout 3 weeks in advance. Validated on 34 real wards. Founded by Sassi Hamdi.'
+    : 'MindMedix AI è la piattaforma di workforce intelligence fondata da Sassi Hamdi per gli ospedali europei. Prevedi carenze di personale e burnout con 3 settimane di anticipo.'
+
+  return {
+    metadataBase: new URL('https://mindmedixai.health'),
+    title: {
+      template: `%s | ${isEn ? 'MindMedix AI' : 'MindMedix AI'}`,
+      default: siteTitle,
+    },
+    description: siteDesc,
+    keywords: isEn 
+      ? 'MindMedix AI, Sassi Hamdi, hospital operations AI, workforce intelligence, predictive analytics healthcare, burnout prevention'
+      : 'MindMedix AI, Sassi Hamdi, AI ospedaliera, intelligenza forza lavoro, Hospital Operations AI, analytics predittivi sanità',
+    icons: {
+      icon: '/logo.png',
+      apple: '/logo.png',
+    },
+    openGraph: {
+      title: siteTitle,
+      description: siteDesc,
+      type: 'website',
+      url: 'https://mindmedixai.health',
+      siteName: 'MindMedix AI',
+      locale: isEn ? 'en_US' : 'it_IT',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: siteTitle,
+      creator: '@sassihamdi',
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  }
 }
 
 
