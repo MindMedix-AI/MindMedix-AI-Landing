@@ -10,13 +10,15 @@ export default function Header() {
   const { locale, setLocale } = useLanguage()
   const t = translations[locale].nav
 
+  const l = (path: string) => `/${locale}${path}`
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#0a1929]/90 backdrop-blur-md border-b border-white/5 overflow-visible">
       <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between overflow-visible">
-        <Link href="/" className="flex items-center shrink-0" style={{ height: 40 }}>
+        <Link href={l('')} className="flex items-center shrink-0" style={{ height: 40 }}>
           <img
             src="/logo.png"
-            alt="MindMedix AI"
+            alt="MindMedix AI - Healthcare Operations Intelligence"
             width={180}
             height={40}
             loading="eager"
@@ -49,23 +51,23 @@ export default function Header() {
               <span>EN</span>
             </button>
           </div>
-          <a href="#problem" className="text-sm text-slate-400 hover:text-white transition">
+          <a href={l('/#problem')} className="text-sm text-slate-400 hover:text-white transition">
             {t.challenge}
           </a>
-          <a href="#solution" className="text-sm text-slate-400 hover:text-white transition">
+          <a href={l('/#solution')} className="text-sm text-slate-400 hover:text-white transition">
             {t.solution}
           </a>
-          <a href="#how-it-works" className="text-sm text-slate-400 hover:text-white transition">
-            {t.platform}
-          </a>
-          <a href="#value" className="text-sm text-slate-400 hover:text-white transition">
-            {t.impact}
-          </a>
-          <a href="#contact" className="text-sm font-medium text-[#2d8cff] hover:text-[#5cadff] transition">
+          <Link href={l('/about')} className="text-sm text-slate-400 hover:text-white transition">
+            {t.about}
+          </Link>
+          <Link href={l('/founder')} className="text-sm text-slate-400 hover:text-white transition">
+            {t.founder}
+          </Link>
+          <a href={l('/#contact')} className="text-sm font-medium text-[#2d8cff] hover:text-[#5cadff] transition">
             {t.contact}
           </a>
           <Link
-            href="#contact"
+            href={l('/#contact')}
             className="px-4 py-2 text-sm font-medium bg-white text-[#0a1929] rounded-lg hover:bg-slate-100 transition"
           >
             {t.requestPilot}
@@ -107,16 +109,17 @@ export default function Header() {
 
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-white/5 bg-[#0d2137] px-6 py-4 flex flex-col gap-4">
-          <a href="#problem" className="text-slate-400 hover:text-white" onClick={() => setMobileMenuOpen(false)}>{t.challenge}</a>
-          <a href="#solution" className="text-slate-400 hover:text-white" onClick={() => setMobileMenuOpen(false)}>{t.solution}</a>
-          <a href="#how-it-works" className="text-slate-400 hover:text-white" onClick={() => setMobileMenuOpen(false)}>{t.platform}</a>
-          <a href="#value" className="text-slate-400 hover:text-white" onClick={() => setMobileMenuOpen(false)}>{t.impact}</a>
-          <a href="#contact" className="text-[#2d8cff]" onClick={() => setMobileMenuOpen(false)}>{t.contact}</a>
-          <Link href="#contact" className="text-center py-2 bg-white text-[#0a1929] rounded-lg font-medium" onClick={() => setMobileMenuOpen(false)}>
+          <a href={l('/#problem')} className="text-slate-400 hover:text-white" onClick={() => setMobileMenuOpen(false)}>{t.challenge}</a>
+          <a href={l('/#solution')} className="text-slate-400 hover:text-white" onClick={() => setMobileMenuOpen(false)}>{t.solution}</a>
+          <Link href={l('/about')} className="text-slate-400 hover:text-white" onClick={() => setMobileMenuOpen(false)}>{t.about}</Link>
+          <Link href={l('/founder')} className="text-slate-400 hover:text-white" onClick={() => setMobileMenuOpen(false)}>{t.founder}</Link>
+          <a href={l('/#contact')} className="text-[#2d8cff]" onClick={() => setMobileMenuOpen(false)}>{t.contact}</a>
+          <Link href={l('/#contact')} className="text-center py-2 bg-white text-[#0a1929] rounded-lg font-medium" onClick={() => setMobileMenuOpen(false)}>
             {t.requestPilot}
           </Link>
         </div>
       )}
+
     </header>
   )
 }

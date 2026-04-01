@@ -4,25 +4,23 @@ import Link from 'next/link'
 import { useLanguage } from '@/context/LanguageContext'
 
 const it = {
-  title: 'Pilot gratuito — zero rischi',
+  title: 'Pilot — zero rischi',
   steps: [
     { title: 'Mi date il CSV', description: 'Un export anonimizzato dal vostro sistema HR. Nessuna integrazione. 10 minuti del vostro tempo.' },
     { title: 'In 48 ore il report', description: 'Il modello gira sui vostri dati reali. Ricevete il report completo per ogni reparto — livello di rischio, segnali, personale disponibile, impatto finanziario.' },
     { title: 'Decidete voi', description: 'Se il report è utile — continuiamo. Se non lo è — nessun costo, nessun impegno. Zero rischio per l\'ospedale.' },
   ],
-  cta: 'Richiedi il Pilot Gratuito →',
-  subtext: 'Già attivi con ospedali privati in Ancona, Milano e Roma',
+  cta: 'Richiedi il Pilot →',
 }
 
 const en = {
-  title: 'Free Pilot — Zero Risk',
+  title: 'Pilot — Zero Risk',
   steps: [
     { title: 'You give us the CSV', description: 'An anonymized export from your HR system. No integration. 10 minutes of your time.' },
     { title: 'Report in 48 hours', description: 'The model runs on your real data. You receive the complete report for each ward — risk level, signals, available staff, financial impact.' },
     { title: 'You Decide', description: 'If the report is useful — we continue. If not — no cost, no commitment. Zero risk for the hospital.' },
   ],
-  cta: 'Request Free Pilot →',
-  subtext: 'Already active with private hospitals in Ancona, Milan and Rome',
+  cta: 'Request Pilot →',
 }
 
 export default function PilotOffer() {
@@ -57,9 +55,6 @@ export default function PilotOffer() {
           >
             {content.cta}
           </Link>
-          <p className="text-slate-500 text-sm font-medium">
-            {content.subtext}
-          </p>
         </div>
       </div>
     </section>

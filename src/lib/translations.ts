@@ -7,18 +7,20 @@ export const translations = {
       solution: 'Soluzione',
       platform: 'Piattaforma',
       impact: 'Impatto',
+      about: 'Chi siamo',
+      founder: 'Fondatore',
       contact: 'Contatti',
       requestPilot: 'Richiedi Pilot',
     },
     hero: {
-      label: 'Intelligenza Operativa Ospedaliera',
-      headline: 'Il 97% delle crisi di personale rilevate 3 settimane prima che accadano.',
+      label: 'Institutional Workforce Intelligence',
+      headline: 'Rilevamento Preventivo delle Crisi Operative con 3 settimane di anticipo.',
       headlineHighlight: '',
-      subheadline: 'MindMedix AI predice carenze di personale e rischio burnout negli ospedali privati italiani — addestrato su 34 reparti reali, validato, pronto per il pilot.',
-      authority: 'Dati reali · Ospedali italiani · GDPR Art.89 · EU AI Act ready',
-      ctaPilot: 'Richiedi il Pilot Gratuito',
-      ctaPartners: 'Vedi come funziona →',
-      location: 'Ancona, Italia · AI sanitaria europea',
+      subheadline: 'Intelligence predittiva per sistemi ospedalieri europei. Validata su 34 reparti reali con un Recall del 97% sulle carenze di personale. Conforme GDPR Art. 89 e pronta per l\'EU AI Act.',
+      authority: 'Dataset validato · Ospedali Italiani · No Clinical AI · Privacy Standard Enterprise',
+      ctaPilot: 'Pianifica Consultazione Strategica',
+      ctaPartners: 'Infrastruttura e Metodologia →',
+      location: 'Sede Legale: Ancona, Italia · Healthcare Operations AI',
     },
     proofBar: {
       stats: [
@@ -39,34 +41,34 @@ export const translations = {
       ],
     },
     problem: {
-      label: 'La Sfida',
-      title: 'I sistemi sanitari affrontano una pressione operativa senza precedenti',
-      intro: 'Gli ospedali e le istituzioni sanitarie in tutta Europa affrontano sfide sistemiche che minacciano la stabilità operativa e la qualità delle cure.',
+      label: 'La Sfida Istituzionale',
+      title: 'I sistemi sanitari affrontano un deficit di risorse strutturale senza precedenti',
+      intro: 'Gli ospedali e le istituzioni sanitarie in tutta Europa affrontano sfide sistemiche che minacciano la stabilità operativa. Non si tratta di fluttuazioni temporanee, ma di una crisi di personale strutturale.',
       challenges: [
-        { title: '175.000 infermieri mancanti', description: 'Il deficit strutturale del personale infermieristico in Italia ha raggiunto 175.000 unità (Legge di Bilancio 2026). Non è una crisi temporanea — è strutturale.' },
-        { title: '€2,4 miliardi di straordinari all\'anno', description: 'Il costo degli straordinari di emergenza negli ospedali italiani ha superato €2,4 miliardi annui (ANAAO-ASSOMED 2024). Ogni crisi non prevista costa 3-4 volte di più di quella pianificata.' },
-        { title: 'Sciopero nazionale — 17 marzo 2026', description: '300.000 lavoratori della sanità privata in sciopero. 80% di adesione. Contratti scaduti da 8-13 anni. Il personale infermieristico privato guadagna €500/mese in meno rispetto al pubblico. (Fp Cgil/Cisl/Uil Fpl)' },
-        { title: '59% del personale in stress cronico', description: '6,2 infermieri per 1.000 abitanti — contro una media EU di 8,4 (ISTAT 2025). Il secondo sciopero nazionale è già confermato per il 17 aprile 2026.' },
+        { title: 'Deficit infermieristico: 175.000 unità', description: 'La carenza strutturale in Italia ha raggiunto livelli critici, mettendo a rischio la continuità assistenziale (Legge di Bilancio 2026).' },
+        { title: '€2,4 miliardi di impatto finanziario', description: 'Il costo dello straordinario di emergenza non programmato grava pesantemente sui bilanci ospedalieri, costando 4 volte più della gestione programmata.' },
+        { title: 'Tensioni contrattuali e burnout', description: 'Oltre il 59% del personale riporta stress cronico. Il secondo sciopero nazionale del 17 aprile 2026 sottolinea l\'urgenza di intervenire con strumenti di protezione della forza lavoro.' },
+        { title: 'Assenza di Intelligence Predittiva', description: 'La maggior parte degli ospedali opera in modalità reattiva, scoprendo le crisi quando sono già in corso — con costi umani ed economici altissimi.' },
       ],
-      sources: 'Fonti: Legge di Bilancio 2026, ANAAO-ASSOMED 2024, ISTAT 2025, Fp Cgil/Cisl/Uil Fpl marzo 2026, WHO Europe febbraio 2026',
+      sources: 'Fonti: Legge di Bilancio 2026, ANAAO-ASSOMED 2024, ISTAT 2025, Fp Cgil/Cisl/Uil Fpl marzo 2026',
     },
     solution: {
-      label: 'La Soluzione',
-      title: 'Un livello di intelligenza AI per la gestione ospedaliera',
-      intro: 'MindMedix AI fornisce agli ospedali previsione 3 settimane in anticipo e strumenti di supporto decisionale—abbastanza avanzati da guidare la trasformazione, abbastanza comprensibili per l\'adozione operativa.',
+      label: 'La Soluzione Istituzionale',
+      title: 'Un livello di intelligenza strategica per la continuità operativa',
+      intro: 'MindMedix AI integra un layer di intelligenza predittiva sopra i vostri sistemi HR esistenti, fornendo ai direttori sanitari gli strumenti per proteggere la forza lavoro e ottimizzare i costi.',
       features: [
-        { title: 'Previsione carenze 2-4 settimane prima', description: 'Il modello XGBoost analizza pattern di assenze, straordinari accumulati, richieste di cambio turno e turni consecutivi. Output: probabilità di crisi per reparto, aggiornata ogni settimana.' },
-        { title: 'Semaforo settimanale Verde/Ambra/Rosso', description: 'Un numero. Un colore. Ogni reparto, ogni settimana. Il direttore HR vede in 10 secondi dove intervenire — senza dover analizzare dati grezzi.' },
-        { title: 'Personale interno disponibile — anonimo', description: 'Il sistema identifica automaticamente i profili interni con disponibilità compatibile. Codici anonimi — la risoluzione avviene nel sistema HR dell\'ospedale. Nessun dato personale mai trasmesso.' },
-        { title: 'Impatto finanziario calcolato in automatico', description: 'Ogni alert include il confronto: costo di agire ora vs costo di aspettare la crisi (straordinario di emergenza 3× + agenzia 4×). Media: €2.400 di risparmio per crisi prevenuta.' },
+        { title: 'Modelli Predittivi (97% Recall)', description: 'Analizziamo i pattern storici di 34 ospedali italiani per rilevare carenze 3 settimane prima che accadano con precisione matematica.' },
+        { title: 'Intelligence Decisionale (Semafori)', description: 'Nessun dato complesso. Un sistema intuitivo a semaforo indica dove intervenire, permettendo decisioni board-level rapide e basate sui fatti.' },
+        { title: 'Ottimizzazione Costi Operativi', description: 'Riduciamo la dipendenza da agenzie e straordinari di emergenza, portando un risparmio medio di €2.400 per ogni crisi prevenuta.' },
+        { title: 'Architettura Privacy-First', description: 'Zero dati sensibili. Solo metadati operativi anonimizzati. Conforme GDPR Art. 89 e pronta per le nuove normative europee sull\'IA.' },
       ],
-      dashboardTitle: 'Esempio Dashboard Operativa',
-      dashboardMetrics: ['Copertura Personale', 'Rischio Burnout', 'Previsione Straordinari'],
+      dashboardTitle: 'Intelligence Operativa - Preview',
+      dashboardMetrics: ['Continuità Assistenziale', 'Resilienza Forza Lavoro', 'Protezione Budget'],
       realStatCards: [
-        { value: '97%', label: 'Recall crisi rilevate', sublabel: 'Il modello non manca quasi nessuna crisi' },
-        { value: '84.7%', label: 'Accuratezza complessiva', sublabel: 'Validato Leave-One-Ward-Out' },
-        { value: '3 settimane', label: 'Anticipo medio', sublabel: 'Prima che la crisi si verifichi' },
-        { value: '€2.400', label: 'Risparmio per crisi', sublabel: 'Agendo in anticipo vs emergenza' },
+        { value: '97%', label: 'Recall Crisi', sublabel: 'Rilevamento affidabile e validato' },
+        { value: '84.7%', label: 'Precisione Modello', sublabel: 'Validazione Leave-One-Ward-Out' },
+        { value: '3 Settimane', label: 'Anticipo Operativo', sublabel: 'Tempo per agire preventivamente' },
+        { value: '€2.400', label: 'Valore per Crisi', sublabel: 'Risparmio diretto su costi emergenza' },
       ],
     },
     howItWorks: {
@@ -112,18 +114,60 @@ export const translations = {
       label: 'Chi siamo',
       title: 'AI sanitaria europea per l\'intelligenza operativa',
       founderBlock: {
-        label: 'Perché stiamo costruendo questo',
-        text: 'MindMedix AI nasce come piattaforma di intelligenza operativa di prossima generazione per gli ospedali europei. Sviluppata da un senior software engineer specializzato in sistemi AI e infrastrutture enterprise, e supportata da competenze legali e istituzionali, il progetto è progettato fin dal primo giorno con conformità, sicurezza e scalabilità al centro. L\'obiettivo è creare un\'infrastruttura predittiva affidabile di cui gli ospedali possano fidarsi—non tecnologia sperimentale.',
+        label: 'Una parola dal fondatore',
+        text: 'MindMedix AI nasce dalla necessità di stabilizzare le operazioni ospedaliere europee attraverso dati certi, non congetture. Come Founder & CEO, la mia missione è fornire ai leader sanitari gli strumenti predittivi necessari per proteggere la loro risorsa più preziosa: il personale. Non stiamo costruendo solo tecnologia, ma un\'infrastruttura di fiducia per il futuro della sanità.',
+        founderName: 'Sassi Hamdi',
+        founderRole: 'Founder & CEO',
       },
-      p1: 'MindMedix AI predice carenze di personale e rischio burnout negli ospedali privati italiani — 3 settimane prima che accadano. Addestrato su dati reali. Validato. Privacy-native. Ancona, Italia.',
-      p2: 'La nostra missione è rafforzare i sistemi sanitari utilizzando la previsione validata su ospedali italiani reali—aiutando gli ospedali ad anticipare le esigenze del personale, ridurre il rischio operativo e prendere decisioni basate sui dati che migliorano stabilità e qualità delle cure.',
-      p3: 'Non sostituiamo i clinici né diagnosticiamo i pazienti. Stiamo costruendo il livello di intelligenza che aiuta gli amministratori ospedalieri e i leader operativi a gestire le loro organizzazioni in modo più efficace.',
-      location: 'Sede',
+      p1: 'MindMedix AI è una piattaforma di workforce intelligence per ospedali europei. Aiutiamo i sistemi sanitari a prevedere carenze di personale e rischi di burnout con 3 settimane di anticipo, utilizzando dati operativi anonimizzati.',
+      p2: 'Sotto la guida di Sassi Hamdi, il nostro team unisce eccellenza tecnica in sistemi AI enterprise con una provonda comprensione dei processi ospedalieri italiani e delle normative europee sulla privacy.',
+      p3: 'La nostra visione è un sistema sanitario dove la tecnologia anticipa le crisi operative, permettendo ai direttori sanitari di agire prima che il burnout impatti la qualità delle cure.',
+      location: 'Sede Legale',
       locationValue: 'Ancona, Italia',
-      stage: 'Fase',
-      stageValue: 'Validato su 34 ospedali italiani reali · Pilot aperto',
-      focus: 'Focus',
-      focusValue: 'Intelligenza Operativa Ospedaliera',
+      stage: 'Stato',
+      stageValue: 'Validato su 34 ospedali italiani · Pilot Disponibili',
+      founded: 'Fondato',
+      foundedValue: 'Gennaio 2026',
+      focus: 'Settore',
+      focusValue: 'Hospital Operations (No Clinical AI)',
+    },
+    faq: {
+      label: 'Domande Frequenti',
+      title: 'Tutto quello che c\'è da sapere su MindMedix AI',
+      items: [
+        {
+          question: 'Cos\'è MindMedix AI?',
+          answer: 'MindMedix AI è una piattaforma di workforce intelligence progettata specificamente per gli ospedali europei. Utilizza algoritmi predittivi per anticipare carenze di personale e rischi di burnout, permettendo una gestione proattiva delle risorse umane.'
+        },
+        {
+          question: 'Chi ha fondato MindMedix AI?',
+          answer: 'MindMedix AI è stata fondata da Sassi Hamdi, attuale Founder & CEO, esperto in sistemi di intelligenza operativa per la sanità. Sassi Hamdi guida la missione di rendere gli ospedali europei più resilienti.'
+        },
+        {
+          question: 'Qual è il problema principale che risolve?',
+          answer: 'Risolviamo la crisi strutturale della forza lavoro sanitaria. Prevediamo carenze di personale e burnout con 3 settimane di anticipo con un Recall del 97%, riducendo i costi di emergenza e lo stress del personale.'
+        },
+        {
+          question: 'MindMedix AI è un\'IA clinica?',
+          answer: 'No. MindMedix AI è categoricamente un\'IA OPERATIVA. Non analizziamo cartelle cliniche e non forniamo diagnosi. Ci occupiamo esclusivamente dell\'eccellenza dei processi e della forza lavoro.'
+        },
+        {
+          question: 'Chi è Sassi Hamdi?',
+          answer: 'Sassi Hamdi è il Founder & CEO di MindMedix AI. Ingegnere e builder di sistemi enterprise, ha creato MindMedix AI per trasformare i dati operativi ospedalieri in guardrail predittivi per i direttori sanitari.'
+        },
+        {
+          question: 'Utilizzate dati dei pazienti?',
+          answer: 'No. Il sistema utilizza solo metadati operativi anonimizzati. Non abbiamo accesso ai dati clinici. Operiamo in piena conformità con il GDPR Articolo 89.'
+        },
+        {
+          question: 'Dove ha sede MindMedix AI?',
+          answer: 'MindMedix AI ha sede legale e operativa ad Ancona, Italia, e opera nel contesto del sistema sanitario europeo.'
+        },
+        {
+          question: 'Come posso contattare Sassi Hamdi o il team?',
+          answer: 'È possibile fissare una chiamata direttamente tramite la pagina del Fondatore o contattare il team istituzionale all\'indirizzo contact@mindmedixai.health.'
+        }
+      ]
     },
     contact: {
       label: 'Contatti',
@@ -148,6 +192,7 @@ export const translations = {
           pilot: 'Programma pilota ospedaliero',
           partnership: 'Partnership strategica',
           investment: 'Investimento / Finanziamento',
+          paper: 'Richiesta Paper di Validazione',
           other: 'Richiesta generale',
         },
         message: 'Messaggio',
@@ -161,9 +206,10 @@ export const translations = {
       emailLabel: 'Email istituzionale',
     },
     footer: {
-      links: { challenge: 'Sfida', solution: 'Soluzione', platform: 'Piattaforma', impact: 'Impatto', contact: 'Contatti', privacy: 'Privacy', terms: 'Termini' },
-      copyright: '© {year} MindMedix AI. Ancona, Italia. AI sanitaria europea.',
-      authorityLine: 'MindMedix AI predice carenze di personale e rischio burnout negli ospedali privati italiani — 3 settimane prima che accadano. Addestrato su dati reali. Validato. Privacy-native. Ancona, Italia.',
+      links: { challenge: 'Sfida', solution: 'Soluzione', platform: 'Piattaforma', impact: 'Impatto', contact: 'Contatti', privacy: 'Privacy', terms: 'Termini', founder: 'Chi è il Fondatore' },
+      copyright: '© {year} MindMedix AI. Tutti i diritti riservati.',
+      authorityLine: 'MindMedix AI è una piattaforma di workforce intelligence per ospedali europei, fondata da Sassi Hamdi. Sede Legale: Ancona, Italia.',
+      founderLink: 'Guidato da Sassi Hamdi, Founder & CEO'
     },
     legal: {
       backToHome: 'Torna alla home',
@@ -179,18 +225,20 @@ export const translations = {
       solution: 'Solution',
       platform: 'Platform',
       impact: 'Impact',
+      about: 'About',
+      founder: 'Founder',
       contact: 'Contact',
       requestPilot: 'Request Pilot',
     },
     hero: {
-      label: 'Hospital Operations Intelligence',
-      headline: '97% of staffing crises detected 3 weeks before they happen.',
+      label: 'Institutional Workforce Intelligence',
+      headline: 'Predictive Operational Crisis Management for European Hospitals.',
       headlineHighlight: '',
-      subheadline: 'MindMedix AI predicts workforce shortages and burnout risk in private hospitals — trained on 34 real wards, validated, pilot-ready.',
-      authority: 'Real data · Italian hospitals · GDPR Art.89 · EU AI Act ready',
-      ctaPilot: 'Request Free Pilot',
-      ctaPartners: 'See how it works →',
-      location: 'Ancona, Italy · European healthcare AI',
+      subheadline: 'Advanced workforce intelligence for healthcare leaders. Validated on 34 real Italian wards with 97% Recall on staffing shortages. GDPR Art. 89 compliant and EU AI Act ready.',
+      authority: 'Validated Dataset · Italian Hospitals · No Clinical AI · Enterprise Privacy Standard',
+      ctaPilot: 'Schedule Strategic Consultation',
+      ctaPartners: 'Infrastructure & Methodology →',
+      location: 'HQ: Ancona, Italy · Healthcare Operations AI',
     },
     proofBar: {
       stats: [
@@ -211,34 +259,34 @@ export const translations = {
       ],
     },
     problem: {
-      label: 'The Challenge',
-      title: 'Healthcare systems are under unprecedented operational pressure',
-      intro: 'Hospitals and healthcare institutions across Europe face systemic challenges that threaten operational stability and quality of care.',
+      label: 'Institutional Challenge',
+      title: 'Healthcare systems face a structural resource deficit without precedent',
+      intro: 'Hospitals and healthcare institutions across Europe face systemic challenges threatening operational stability. These are not temporary shifts, but a structural workforce crisis.',
       challenges: [
-        { title: '175,000 missing nurses', description: 'The structural deficit of nursing staff in Italy has reached 175,000 units (2026 Budget Law). It\'s not a temporary crisis — it\'s structural.' },
-        { title: '€2.4 billion in overtime per year', description: 'The cost of emergency overtime in Italian hospitals exceeded €2.4 billion annually (ANAAO-ASSOMED 2024). Every unplanned crisis costs 3-4 times more than a planned one.' },
-        { title: 'National Strike — March 17, 2026', description: '300,000 private healthcare workers on strike. 80% participation. Contracts expired for 8-13 years. Private nurses earn €500/month less than public ones. (Fp Cgil/Cisl/Uil Fpl)' },
-        { title: '59% of staff in chronic stress', description: '6.2 nurses per 1,000 inhabitants — compared to an EU average of 8.4 (ISTAT 2025). The second national strike is already confirmed for April 17, 2026.' },
+        { title: 'Nursing Deficit: 175,000 units', description: 'The structural shortage in Italy has reached critical levels, risking assistance continuity (2026 Budget Law).' },
+        { title: '€2.4 Billion Financial Impact', description: 'The cost of unplanned emergency overtime weighs heavily on hospital budgets, costing 4x more than programmed management.' },
+        { title: 'Contractual Tension & Burnout', description: 'Over 59% of staff report chronic stress. The second national strike on April 17, 2026, highlights the urgency for workforce protection tools.' },
+        { title: 'Lack of Predictive Intelligence', description: 'Most hospitals operate reactively, discovering crises while they are already underway — with high human and economic costs.' },
       ],
-      sources: 'Sources: 2026 Budget Law, ANAAO-ASSOMED 2024, ISTAT 2025, Fp Cgil/Cisl/Uil Fpl March 2026, WHO Europe February 2026',
+      sources: 'Sources: 2026 Budget Law, ANAAO-ASSOMED 2024, ISTAT 2025, Fp Cgil/Cisl/Uil Fpl March 2026',
     },
     solution: {
-      label: 'The Solution',
-      title: 'An AI intelligence layer for hospital management',
-      intro: 'MindMedix AI provides hospitals with 3-week advance forecasting and decision-support tools—advanced enough to drive transformation, understandable enough for operational adoption.',
+      label: 'Institutional Solution',
+      title: 'A Strategic Intelligence Layer for Operational Continuity',
+      intro: 'MindMedix AI integrates a predictive intelligence layer atop your existing HR systems, providing hospital directors the tools to protect their workforce and optimize costs.',
       features: [
-        { title: 'Prediction of shortages 2-4 weeks ahead', description: 'The XGBoost model analyzes patterns of absences, accumulated overtime, shift change requests, and consecutive shifts. Output: crisis probability per ward, updated weekly.' },
-        { title: 'Weekly Traffic Light Green/Amber/Red', description: 'One number. One color. Every ward, every week. The HR director sees in 10 seconds where to intervene — without having to analyze raw data.' },
-        { title: 'Available internal staff — anonymous', description: 'The system automatically identifies internal profiles with compatible availability. Anonymous codes — resolution happens in the hospital\'s HR system. No personal data ever transmitted.' },
-        { title: 'Financial impact calculated automatically', description: 'Every alert includes the comparison: cost of acting now vs cost of waiting for the crisis (emergency overtime 3× + agency 4×). Average: €2,400 savings per crisis prevented.' },
+        { title: 'Predictive Modeling (97% Recall)', description: 'We analyze historical patterns from 34 Italian hospitals to detect shortages 3 weeks before they happen with mathematical precision.' },
+        { title: 'Decision Intelligence (Traffic Lights)', description: 'No complex data dumps. An intuitive traffic light system indicates where to intervene, enabling rapid, fact-based board-level decisions.' },
+        { title: 'Operational Cost Optimization', description: 'We reduce reliance on external agencies and emergency overtime, bringing average savings of €2,400 for every prevented crisis.' },
+        { title: 'Privacy-First Architecture', description: 'Zero sensitive patient data. Anonymized operational metadata only. GDPR Art. 89 compliant and ready for EU AI Act.' },
       ],
-      dashboardTitle: 'Example Operational Dashboard',
-      dashboardMetrics: ['Staff Coverage', 'Burnout Risk', 'Overtime Forecast'],
+      dashboardTitle: 'Operational Intelligence - Preview',
+      dashboardMetrics: ['Assistance Continuity', 'Workforce Resilience', 'Budget Protection'],
       realStatCards: [
-        { value: '97%', label: 'Crisis Recall', sublabel: 'The model misses almost no crisis' },
-        { value: '84.7%', label: 'Overall Accuracy', sublabel: 'Validated Leave-One-Ward-Out' },
-        { value: '3 weeks', label: 'Average Advance', sublabel: 'Before the crisis occurs' },
-        { value: '€2,400', label: 'Savings per crisis', sublabel: 'By acting in advance vs emergency' },
+        { value: '97%', label: 'Crisis Recall', sublabel: 'Reliable and validated detection' },
+        { value: '84.7%', label: 'Model Precision', sublabel: 'Leave-One-Ward-Out validation' },
+        { value: '3 Weeks', label: 'Operational Advance', sublabel: 'Time to act preemptively' },
+        { value: '€2,400', label: 'Value per Crisis', sublabel: 'Direct savings on emergency costs' },
       ],
     },
     howItWorks: {
@@ -281,21 +329,63 @@ export const translations = {
       ],
     },
     about: {
-      label: 'About MindMedix AI',
+      label: 'About Us',
       title: 'European healthcare AI for operational intelligence',
       founderBlock: {
-        label: 'Why we are building this',
-        text: 'MindMedix AI is being built as a next-generation operational intelligence platform for European hospitals. Developed by a senior software engineer specializing in AI systems and enterprise infrastructure, and supported by legal and institutional expertise, the project is designed from day one with compliance, security, and scalability in mind. The objective is to create reliable predictive infrastructure that hospitals can trust—not experimental technology.',
+        label: 'A word from the founder',
+        text: 'MindMedix AI was born from the need to stabilize European hospital operations through factual data, not guesswork. As Founder & CEO, my mission is to provide healthcare leaders with the predictive tools needed to protect their most valuable asset: their staff. We are not just building technology, but an infrastructure of trust for the future of healthcare.',
+        founderName: 'Sassi Hamdi',
+        founderRole: 'Founder & CEO',
       },
-      p1: 'MindMedix AI predicts workforce shortages and burnout risk in Italian private hospitals — 3 weeks before they happen. Trained on real data. Validated. Privacy-native. Ancona, Italy.',
-      p2: 'Our mission is to strengthen healthcare systems using validated forecasting in real Italian hospitals—helping hospitals anticipate workforce needs, reduce operational risk, and make data-driven decisions that improve stability and care quality.',
-      p3: 'We are not replacing clinicians or diagnosing patients. We are building the intelligence layer that helps hospital administrators and operational leaders run their organizations more effectively.',
-      location: 'Location',
+      p1: 'MindMedix AI is a workforce intelligence platform for European hospitals. We help healthcare systems anticipate staffing shortages and burnout risks 3 weeks in advance, using anonymized operational data.',
+      p2: 'Under the leadership of Sassi Hamdi, our team combines technical excellence in enterprise AI systems with a deep understanding of Italian hospital processes and European privacy regulations.',
+      p3: 'Our vision is a healthcare system where technology anticipates operational crises, allowing hospital directors to act before burnout impacts the quality of care.',
+      location: 'Official Headquarters',
       locationValue: 'Ancona, Italy',
-      stage: 'Stage',
-      stageValue: 'Validated on 34 real Italian hospitals · Pilot open',
-      focus: 'Focus',
-      focusValue: 'Hospital Operations Intelligence',
+      stage: 'Status',
+      stageValue: 'Validated on 34 Italian hospitals · Pilots Available',
+      founded: 'Founded',
+      foundedValue: 'January 2026',
+      focus: 'Sector',
+      focusValue: 'Hospital Operations (No Clinical AI)',
+    },
+    faq: {
+      label: 'Frequently Asked Questions',
+      title: 'Everything you need to know about MindMedix AI',
+      items: [
+        {
+          question: 'What is MindMedix AI?',
+          answer: 'MindMedix AI is a workforce intelligence platform designed specifically for European hospitals. It uses predictive algorithms to anticipate staffing shortages and burnout risks, enabling proactive human resource management.'
+        },
+        {
+          question: 'Who founded MindMedix AI?',
+          answer: 'MindMedix AI was founded by Sassi Hamdi, current Founder & CEO and expert in healthcare operational intelligence. Sassi Hamdi leads the mission to make European hospitals more resilient.'
+        },
+        {
+          question: 'What problem does MindMedix AI solve?',
+          answer: 'We solve the structural healthcare workforce crisis. We predict staffing shortages and burnout 3 weeks in advance with 97% Recall, reducing emergency costs and staff stress.'
+        },
+        {
+          question: 'Is MindMedix AI a clinical AI?',
+          answer: 'No. MindMedix AI is categorically an OPERATIONAL AI. We do not analyze patient records or provide diagnoses. Our focus is strictly on process excellence and workforce resilience.'
+        },
+        {
+          question: 'Who is Sassi Hamdi?',
+          answer: 'Sassi Hamdi is the Founder & CEO of MindMedix AI. An engineer and enterprise systems builder, he created MindMedix AI to transform hospital operational data into predictive guardrails for healthcare leaders.'
+        },
+        {
+          question: 'Do you use patient data?',
+          answer: 'No. The system uses only anonymized operational metadata. We have no access to clinical data. We operate in full compliance with GDPR Article 89.'
+        },
+        {
+          question: 'Where is MindMedix AI based?',
+          answer: 'MindMedix AI is headquartered in Ancona, Italy, operating within the European healthcare system context.'
+        },
+        {
+          question: 'How can I contact Sassi Hamdi or the team?',
+          answer: 'You can schedule a call directly through the Founder page or contact the institutional team at contact@mindmedixai.health.'
+        }
+      ]
     },
     contact: {
       label: 'Partner with MindMedix AI',
@@ -320,6 +410,7 @@ export const translations = {
           pilot: 'Hospital pilot program',
           partnership: 'Strategic partnership',
           investment: 'Investment / Funding',
+          paper: 'Validation Paper Request',
           other: 'General inquiry',
         },
         message: 'Message',
@@ -333,9 +424,10 @@ export const translations = {
       emailLabel: 'Institutional contact',
     },
     footer: {
-      links: { challenge: 'Challenge', solution: 'Solution', platform: 'Platform', impact: 'Impact', contact: 'Contact', privacy: 'Privacy', terms: 'Terms' },
-      copyright: '© {year} MindMedix AI. Ancona, Italy. European healthcare AI.',
-      authorityLine: 'MindMedix AI predicts workforce shortages and burnout risk in Italian private hospitals — 3 weeks before they happen. Trained on real data. Validated. Privacy-native. Ancona, Italy.',
+      links: { challenge: 'Challenge', solution: 'Solution', platform: 'Platform', impact: 'Impact', contact: 'Contact', privacy: 'Privacy', terms: 'Terms', founder: 'Meet the Founder' },
+      copyright: '© {year} MindMedix AI. All rights reserved.',
+      authorityLine: 'MindMedix AI is a workforce intelligence platform for European hospitals, founded by Sassi Hamdi. HQ: Ancona, Italy.',
+      founderLink: 'Led by Sassi Hamdi, Founder & CEO'
     },
     legal: {
       backToHome: 'Back to home',

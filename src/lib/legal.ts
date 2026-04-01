@@ -3,7 +3,7 @@ import type { Locale } from './translations'
 export const privacyContent: Record<Locale, { title: string; lastUpdated: string; sections: { title: string; content: string }[] }> = {
   it: {
     title: 'Informativa sulla Privacy',
-    lastUpdated: 'Ultimo aggiornamento: febbraio 2025',
+    lastUpdated: 'Ultimo aggiornamento: marzo 2026',
     sections: [
       {
         title: '1. Titolare del trattamento',
@@ -41,7 +41,7 @@ export const privacyContent: Record<Locale, { title: string; lastUpdated: string
   },
   en: {
     title: 'Privacy Policy',
-    lastUpdated: 'Last updated: February 2025',
+    lastUpdated: 'Last updated: March 2026',
     sections: [
       {
         title: '1. Data Controller',
@@ -82,7 +82,7 @@ export const privacyContent: Record<Locale, { title: string; lastUpdated: string
 export const termsContent: Record<Locale, { title: string; lastUpdated: string; sections: { title: string; content: string }[] }> = {
   it: {
     title: 'Termini e Condizioni',
-    lastUpdated: 'Ultimo aggiornamento: febbraio 2025',
+    lastUpdated: 'Ultimo aggiornamento: marzo 2026',
     sections: [
       {
         title: '1. Accettazione',
@@ -124,7 +124,7 @@ export const termsContent: Record<Locale, { title: string; lastUpdated: string; 
   },
   en: {
     title: 'Terms and Conditions',
-    lastUpdated: 'Last updated: February 2025',
+    lastUpdated: 'Last updated: March 2026',
     sections: [
       {
         title: '1. Acceptance',
