@@ -13,11 +13,12 @@ export default function Footer() {
     <footer className="py-8 px-6 border-t border-white/5">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         <img
-          src="/logo.png"
+          src="/mindmedix-ai-logo-512.png"
           alt="MindMedix AI - Healthcare Operations Intelligence"
-          width={450}
-          height={150}
-          style={{ height: '120px', width: 'auto', objectFit: 'contain' }}
+          width={80}
+          height={80}
+          className="rounded-xl opacity-80 hover:opacity-100 transition-opacity"
+          style={{ height: '80px', width: 'auto', objectFit: 'contain' }}
         />
         <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
           <div className="flex flex-wrap items-center justify-center md:justify-end gap-6 text-sm text-slate-500">
