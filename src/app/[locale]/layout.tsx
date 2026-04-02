@@ -35,8 +35,9 @@ export async function generateMetadata({ params: { locale } }: { params: { local
       ? 'MindMedix AI, Sassi Hamdi, hospital operations AI, workforce intelligence, predictive analytics healthcare, burnout prevention'
       : 'MindMedix AI, Sassi Hamdi, AI ospedaliera, intelligenza forza lavoro, Hospital Operations AI, analytics predittivi sanità',
     icons: {
-      icon: '/logo.png',
-      apple: '/logo.png',
+      icon: '/icon.png',
+      apple: '/apple-icon.png',
+      shortcut: '/favicon.png',
     },
     openGraph: {
       title: siteTitle,
