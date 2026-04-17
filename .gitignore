@@ -39,6 +39,7 @@ data/
 
 # Archives & Assets (Keep in history, ignore for build)
 *.pdf
+!public/MindMedix_Sample_Report.pdf
 *.jpeg
 *.jpg
 *.pages
