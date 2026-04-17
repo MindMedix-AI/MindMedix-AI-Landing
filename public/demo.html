@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MindMedix AI — Live Intelligence Demo</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg:#080C14; --navy:#0A1628; --card:#0D1826; --card2:#0A1220;
+      --accent:#2563EB; --blue-lt:#60A5FA; --white:#FFFFFF; --gray:#64748B;
+      --line:#1E2D4A; --green:#10B981; --amber:#F59E0B; --red:#EF4444; --red-dk:#1A0808;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--white);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.5;}
+
+    /* HEADER */
+    header{position:sticky;top:0;z-index:100;background:rgba(8,12,20,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:56px;}
+    .logo{font-weight:700;font-size:15px;letter-spacing:.02em;}
+    .logo span{color:var(--accent);}
+    .nav-pills{display:flex;gap:2px;}
+    .nav-pills a{padding:5px 14px;border-radius:20px;font-size:12px;color:var(--gray);text-decoration:none;transition:all .2s;}
+    .nav-pills a:hover{background:var(--line);color:var(--white);}
+    .nav-pills a.active{background:rgba(37,99,235,.15);color:var(--blue-lt);}
+    .header-right{display:flex;align-items:center;gap:12px;}
+    .lang-toggle{display:flex;background:var(--navy);border:1px solid var(--line);border-radius:8px;overflow:hidden;}
+    .lang-btn{padding:4px 10px;font-size:11px;font-weight:700;letter-spacing:.06em;background:transparent;color:var(--gray);border:none;cursor:pointer;transition:all .2s;}
+    .lang-btn.active{background:var(--accent);color:#fff;}
+    .badge-live{background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;letter-spacing:.08em;animation:blink 2s infinite;}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.55}}
+
+    /* HERO */
+    .hero{max-width:1200px;margin:0 auto;padding:80px 24px 64px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
+    .hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--accent);text-transform:uppercase;margin-bottom:16px;}
+    .hero h1{font-size:44px;font-weight:800;line-height:1.1;letter-spacing:-.02em;margin-bottom:16px;}
+    .hero h1 em{font-style:normal;color:var(--blue-lt);}
+    .hero-sub{font-size:16px;color:var(--gray);line-height:1.7;margin-bottom:28px;}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+    .btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-size:13px;font-weight:700;padding:10px 20px;border-radius:8px;text-decoration:none;transition:background .2s;border:none;cursor:pointer;}
+    .btn-primary:hover{background:#1d4ed8;}
+    .btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--white);font-size:13px;font-weight:600;padding:10px 20px;border-radius:8px;text-decoration:none;border:1px solid var(--line);transition:border-color .2s;cursor:pointer;}
+    .btn-outline:hover{border-color:var(--gray);}
+    .hero-card{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;}
+    .hero-card-header{background:var(--navy);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);}
+    .hero-card-title{font-size:11px;font-weight:700;color:var(--blue-lt);letter-spacing:.1em;text-transform:uppercase;}
+    .hero-card-body{padding:16px;display:flex;flex-direction:column;gap:8px;}
+    .mini-dept-row{display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--navy);border-radius:6px;}
+    .mini-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+    .mini-name{font-size:12px;font-weight:600;flex:1;}
+    .mini-badge{font-size:9px;font-weight:700;padding:2px 8px;border-radius:10px;letter-spacing:.06em;}
+    .mini-pct{font-size:12px;font-weight:700;width:36px;text-align:right;}
+
+    /* SECTIONS */
+    section{padding:56px 24px;max-width:1200px;margin:0 auto;}
+    .section-label{font-size:10px;font-weight:700;letter-spacing:.15em;color:var(--accent);text-transform:uppercase;margin-bottom:8px;}
+    h2{font-size:28px;font-weight:700;margin-bottom:6px;}
+    .sub{color:var(--gray);font-size:14px;margin-bottom:32px;}
+    .divider{border:none;border-top:1px solid var(--line);margin:0;}
+
+    /* STATS */
+    .stats-bar{background:var(--navy);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+    .stats-bar-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:repeat(4,1fr);}
+    .stat-cell{padding:20px 24px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:4px;}
+    .stat-cell:last-child{border-right:none;}
+    .stat-val{font-size:32px;font-weight:800;line-height:1;}
+    .stat-lbl{font-size:11px;color:var(--gray);font-weight:500;letter-spacing:.05em;}
+    .stat-note{font-size:10px;color:var(--blue-lt);}
+
+    /* CRISIS ALERT */
+    .crisis-alert{background:var(--red-dk);border:1px solid var(--red);border-radius:8px;padding:14px 18px;display:flex;align-items:center;gap:14px;margin-bottom:24px;}
+    .alert-dot{width:9px;height:9px;border-radius:50%;background:var(--red);flex-shrink:0;animation:blink 1.5s infinite;}
+    .alert-text{font-size:13px;}
+    .alert-text strong{color:var(--red);}
+
+    /* DEPT TABLE */
+    .dept-table{width:100%;border-collapse:collapse;}
+    .dept-table th{text-align:left;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-lt);padding:10px 12px;background:var(--navy);border-bottom:1px solid var(--line);}
+    .dept-table td{padding:11px 12px;font-size:13px;border-bottom:1px solid var(--line);vertical-align:middle;}
+    .dept-table tr:nth-child(even) td{background:var(--card2);}
+    .dept-table tr:nth-child(odd) td{background:var(--card);}
+    .dept-table tr:hover td{background:rgba(37,99,235,.07);}
+    .dept-name-cell{display:flex;align-items:center;gap:10px;}
+    .dept-bar{width:3px;height:32px;border-radius:2px;flex-shrink:0;}
+    .dept-info{display:flex;flex-direction:column;}
+    .dept-info-name{font-weight:600;font-size:13px;}
+    .dept-info-sub{font-size:10px;color:var(--gray);}
+    .badge{display:inline-flex;align-items:center;justify-content:center;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.06em;white-space:nowrap;}
+    .badge-crisis{background:var(--red);color:#fff;}
+    .badge-atrisk{background:var(--amber);color:#0a0a0a;}
+    .badge-stable{background:var(--green);color:#fff;}
+    .prob-cell{font-size:14px;font-weight:700;}
+    .action-urgent{color:var(--red);font-weight:700;font-size:12px;}
+    .action-monitor{color:var(--amber);font-weight:700;font-size:12px;}
+    .action-none{color:var(--green);font-size:12px;}
+    .it-label{font-size:10px;color:var(--gray);display:block;margin-top:1px;}
+    .spark-cell{display:flex;flex-direction:column;gap:3px;}
+    .spark-signal{font-size:11px;color:var(--gray);}
+    .summary-boxes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px;}
+    .sum-box{border-radius:8px;padding:14px 16px;border:1px solid;}
+    .sum-box .sum-val{font-size:16px;font-weight:700;}
+    .sum-box .sum-sub{font-size:11px;color:var(--gray);margin-top:2px;}
+
+    /* PREDICTOR */
+    .predictor-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
+    .predictor-inputs{display:flex;flex-direction:column;gap:18px;}
+    .slider-row label{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:600;margin-bottom:7px;}
+    .slider-row label span.val-badge{background:var(--navy);border:1px solid var(--line);padding:2px 10px;border-radius:12px;font-size:12px;font-weight:700;min-width:56px;text-align:center;}
+    .slider-row input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:4px;border-radius:2px;background:var(--line);outline:none;cursor:pointer;}
+    .slider-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--accent);cursor:pointer;box-shadow:0 0 0 3px rgba(37,99,235,.25);animation:thumbPulse 1.8s ease-in-out infinite;}
+    .slider-row input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--accent);cursor:pointer;border:none;box-shadow:0 0 0 3px rgba(37,99,235,.25);animation:thumbPulse 1.8s ease-in-out infinite;}
+    .predictor-inputs.used input[type=range]::-webkit-slider-thumb{animation:none;}
+    .predictor-inputs.used input[type=range]::-moz-range-thumb{animation:none;}
+    @keyframes thumbPulse{0%,100%{box-shadow:0 0 0 3px rgba(37,99,235,.25);}50%{box-shadow:0 0 0 7px rgba(37,99,235,.35),0 0 14px 4px rgba(37,99,235,.2);}}
+    .drag-hint{display:flex;align-items:center;justify-content:center;gap:6px;font-size:10px;color:var(--accent);font-weight:700;letter-spacing:.06em;margin-bottom:14px;animation:hintBounce 1.2s ease-in-out infinite;opacity:1;transition:opacity .4s;}
+    .drag-hint.hidden{opacity:0;pointer-events:none;}
+    .drag-hint-arrow{font-size:13px;}
+    @keyframes hintBounce{0%,100%{transform:translateX(0);}30%{transform:translateX(-5px);}70%{transform:translateX(5px);}}
+    .slider-desc{font-size:10px;color:var(--gray);margin-top:3px;}
+    .scenario-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
+    .scenario-btn{padding:7px 14px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;letter-spacing:.05em;transition:opacity .15s;}
+    .scenario-btn:hover{opacity:.8;}
+    .predictor-result{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:18px;transition:border-color .35s;}
+    .risk-display{text-align:center;padding:16px 0 10px;}
+    .risk-icon-css{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:24px;font-weight:900;transition:background .3s,color .3s;}
+    .risk-level-label{font-size:22px;font-weight:800;letter-spacing:.04em;transition:color .3s;}
+    .risk-conf{font-size:12px;color:var(--gray);margin-top:4px;}
+    .prob-bars{display:flex;flex-direction:column;gap:10px;}
+    .prob-row{display:flex;align-items:center;gap:10px;font-size:12px;}
+    .prob-name{width:66px;font-weight:600;flex-shrink:0;}
+    .prob-track{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden;}
+    .prob-fill{height:100%;border-radius:4px;transition:width .4s ease;}
+    .prob-pct{width:36px;text-align:right;font-weight:700;flex-shrink:0;}
+    .top-signals{display:flex;flex-direction:column;gap:7px;}
+    .signal-chip{background:var(--navy);border:1px solid var(--line);border-radius:6px;padding:8px 12px;font-size:11px;display:flex;align-items:center;gap:8px;}
+    .signal-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+    .signal-name{flex:1;color:var(--white);font-weight:600;}
+    .signal-val{color:var(--gray);}
+    .signal-flag{font-size:9px;font-weight:700;padding:1px 6px;border-radius:4px;}
+    .flag-up{background:rgba(239,68,68,.15);color:var(--red);}
+    .flag-high{background:rgba(245,158,11,.15);color:var(--amber);}
+    /* ACTION PLAN */
+    .action-plan{display:none;background:var(--navy);border-radius:8px;padding:14px;font-size:12px;border:1px solid var(--line);}
+    .action-plan.visible{display:block;}
+    .ap-title{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);margin-bottom:10px;}
+    .tier{display:flex;align-items:flex-start;gap:10px;padding:9px 10px;border-radius:6px;margin-bottom:7px;border:1px solid transparent;}
+    .tier-1{background:rgba(16,185,129,.06);border-color:rgba(16,185,129,.2);}
+    .tier-2{background:rgba(245,158,11,.04);border-color:rgba(245,158,11,.15);}
+    .tier-3{background:rgba(239,68,68,.04);border-color:rgba(239,68,68,.12);}
+    .tier-tag{font-size:9px;font-weight:800;letter-spacing:.08em;padding:2px 6px;border-radius:3px;flex-shrink:0;margin-top:1px;}
+    .tag-best{background:rgba(16,185,129,.15);color:var(--green);}
+    .tag-mid{background:rgba(245,158,11,.15);color:var(--amber);}
+    .tag-last{background:rgba(239,68,68,.12);color:var(--red);}
+    .tier-body{flex:1;min-width:0;}
+    .tier-label{font-size:11px;font-weight:700;margin-bottom:2px;}
+    .tier-desc{font-size:10px;color:var(--gray);line-height:1.5;}
+    .tier-meta{font-size:10px;font-weight:700;margin-top:3px;}
+    .staff-chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px;}
+    .staff-chip{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);border-radius:4px;padding:2px 7px;font-size:9px;color:var(--green);font-weight:700;font-family:monospace;letter-spacing:.02em;}
+    .tier-rate{font-size:12px;font-weight:800;flex-shrink:0;padding-top:1px;}
+    .ap-divider{border:none;border-top:1px solid var(--line);margin:10px 0 8px;}
+    .ap-saving{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:700;}
+    .ap-saving-note{font-size:10px;color:var(--green);margin-top:4px;}
+    .sec-title-sm{font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--gray);margin-bottom:10px;text-transform:uppercase;}
+
+    /* FEATURE CHART */
+    .feat-chart-wrap{position:relative;height:340px;}
+
+    /* PIPELINE */
+    .pipeline{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:12px;overflow:hidden;}
+    .pipe-step{padding:28px 20px;border-right:1px solid var(--line);}
+    .pipe-step:last-child{border-right:none;}
+    .pipe-num{font-size:36px;font-weight:800;color:var(--line);line-height:1;margin-bottom:12px;}
+    .pipe-title{font-size:13px;font-weight:700;margin-bottom:6px;}
+    .pipe-desc{font-size:11px;color:var(--gray);line-height:1.65;}
+    .pipe-tag{display:inline-block;margin-top:12px;font-size:9px;font-weight:700;letter-spacing:.1em;color:var(--accent);background:rgba(37,99,235,.12);padding:3px 8px;border-radius:4px;text-transform:uppercase;}
+    .cost-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px;}
+    .cost-card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px;}
+    .cost-card-sub{font-size:11px;color:var(--gray);margin-bottom:4px;}
+    .cost-card-val{font-size:20px;font-weight:800;}
+    .cost-card-note{font-size:11px;color:var(--gray);margin-top:4px;}
+
+    /* VALIDATION */
+    .validation-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+    .val-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px;}
+    .val-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-lt);margin-bottom:16px;}
+    .class-metrics{display:flex;flex-direction:column;gap:10px;}
+    .cm-row{display:flex;align-items:center;gap:8px;font-size:11px;}
+    .cm-name{width:74px;font-weight:600;}
+    .cm-bar-wrap{flex:1;height:6px;background:var(--line);border-radius:3px;overflow:hidden;}
+    .cm-bar{height:100%;border-radius:3px;}
+    .cm-pct{width:36px;text-align:right;font-weight:700;}
+    .cm-note{font-size:10px;color:var(--gray);margin-left:82px;margin-top:-4px;}
+    .accuracy-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;padding-top:16px;border-top:1px solid var(--line);}
+    .acc-val{font-size:24px;font-weight:800;color:var(--blue-lt);}
+    .acc-lbl{font-size:10px;color:var(--gray);}
+    .method-row{display:flex;gap:10px;font-size:12px;}
+    .method-key{color:var(--gray);width:100px;flex-shrink:0;}
+
+    /* CTA */
+    .cta-section{background:linear-gradient(135deg,#0A1628 0%,#0D1E3A 100%);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:64px 24px;text-align:center;}
+    .cta-inner{max-width:640px;margin:0 auto;}
+    .cta-eyebrow{font-size:11px;font-weight:700;letter-spacing:.15em;color:var(--accent);text-transform:uppercase;margin-bottom:16px;}
+    .cta-title{font-size:34px;font-weight:800;line-height:1.15;margin-bottom:14px;}
+    .cta-sub{font-size:15px;color:var(--gray);margin-bottom:28px;line-height:1.6;}
+    .cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+    .cta-badges{display:flex;gap:16px;justify-content:center;margin-top:24px;flex-wrap:wrap;}
+    .cta-badge{font-size:11px;color:var(--gray);display:flex;align-items:center;gap:5px;}
+    .cta-check{color:var(--green);font-weight:700;}
+
+    footer{padding:24px;display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--gray);max-width:1200px;margin:0 auto;}
+    footer a{color:var(--blue-lt);text-decoration:none;}
+
+    @media(max-width:900px){.hero{grid-template-columns:1fr;}.hero h1{font-size:32px;}.predictor-grid{grid-template-columns:1fr;}.validation-grid{grid-template-columns:1fr;}}
+    @media(max-width:768px){.stats-bar-inner{grid-template-columns:repeat(2,1fr);}.pipeline{grid-template-columns:1fr 1fr;}.summary-boxes{grid-template-columns:1fr;}.cost-cards{grid-template-columns:1fr;}.nav-pills{display:none;}}
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">MindMedix <span>AI</span></div>
+  <nav class="nav-pills" id="main-nav">
+    <a href="#overview"   data-section="overview"   data-i18n="nav.overview">Overview</a>
+    <a href="#predictor"  data-section="predictor"  data-i18n="nav.predictor">Try the Model</a>
+    <a href="#features"   data-section="features"   data-i18n="nav.features">Signals</a>
+    <a href="#validation" data-section="validation" data-i18n="nav.validation">Validation</a>
+    <a href="#how"        data-section="how"        data-i18n="nav.how">How It Works</a>
+  </nav>
+  <div class="header-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn"        id="btn-it" onclick="setLang('it')">IT</button>
+    </div>
+    <div class="badge-live">LIVE DEMO</div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div style="background:linear-gradient(180deg,var(--navy) 0%,var(--bg) 100%);border-bottom:1px solid var(--line)">
+  <div class="hero">
+    <div>
+      <div class="hero-eyebrow" data-i18n="hero.eyebrow">Hospital Workforce Intelligence</div>
+      <h1 data-i18n-html="hero.h1">Predict staffing crises <em>3 weeks</em> before they happen</h1>
+      <p class="hero-sub" data-i18n="hero.sub">MindMedix AI analyses shift rosters and absence patterns to give hospital operations managers an early warning — with enough time to act on it, not react to it.</p>
+      <div class="hero-actions">
+        <a href="#predictor" class="btn-primary" data-i18n="hero.cta1">Try the Model →</a>
+        <a href="https://calendly.com/hamdysassy7/intro" class="btn-outline" target="_blank" data-i18n="hero.cta2">Book a Call →</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-header">
+        <span class="hero-card-title" data-i18n="hero.cardTitle">Current Week — All Departments</span>
+        <div class="alert-dot"></div>
+      </div>
+      <div class="hero-card-body" id="hero-mini-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-bar-inner">
+    <div class="stat-cell">
+      <div class="stat-val" style="color:var(--blue-lt)" id="cnt-accuracy">0%</div>
+      <div class="stat-lbl" data-i18n="stats.accuracy">Overall Accuracy</div>
+      <div class="stat-note" data-i18n="stats.accuracyNote">LOWO cross-validation · 10 folds</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-val" style="color:var(--red)" id="cnt-recall">0%</div>
+      <div class="stat-lbl" data-i18n="stats.recall">Crisis Recall</div>
+      <div class="stat-note" data-i18n="stats.recallNote">28 / 29 crisis events caught</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-val" style="color:var(--amber)" id="cnt-hospitals">0</div>
+      <div class="stat-lbl" data-i18n="stats.wards">Real Hospital Wards</div>
+      <div class="stat-note" data-i18n="stats.wardsNote">Italian NHS data · Ceschia 2023</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-val" style="color:var(--green)" data-i18n="stats.weeks">3 Weeks</div>
+      <div class="stat-lbl" data-i18n="stats.weeksLbl">Advance Warning</div>
+      <div class="stat-note" data-i18n="stats.weeksNote">Before shortage becomes critical</div>
+    </div>
+  </div>
+</div>
+
+<!-- OVERVIEW -->
+<section id="overview">
+  <div class="section-label" data-i18n="overview.label">Hospital Intelligence Board</div>
+  <h2 data-i18n="overview.title">All Departments — Current Week</h2>
+  <p class="sub" data-i18n="overview.sub">Staffing risk across all 10 wards. Color-coded by severity. Sparklines show 6-week trend.</p>
+  <div class="crisis-alert">
+    <div class="alert-dot"></div>
+    <div class="alert-text" id="crisis-alert-text">
+      <strong data-i18n="alert.heading">2 CRITICAL ALERTS</strong> — <span data-i18n="alert.body">Cardiologia and Terapia Intensiva require immediate action. Predicted 3 weeks in advance. Estimated combined saving:</span> <strong style="color:var(--green)">€5,900</strong> <span data-i18n="alert.suffix">by acting now vs agency staff.</span>
+    </div>
+  </div>
+  <table class="dept-table">
+    <thead>
+      <tr>
+        <th data-i18n="table.dept">Department / Reparto</th>
+        <th data-i18n="table.risk">Risk Level</th>
+        <th data-i18n="table.prob">Probability</th>
+        <th data-i18n="table.trend">6-Week Trend &amp; Key Signal</th>
+        <th data-i18n="table.time">Time to Act</th>
+        <th data-i18n="table.action">Action</th>
+      </tr>
+    </thead>
+    <tbody id="dept-tbody"></tbody>
+  </table>
+  <div class="summary-boxes">
+    <div class="sum-box" style="border-color:var(--red);background:rgba(239,68,68,.05)">
+      <div class="sum-val" style="color:var(--red)" data-i18n="summary.critical">2 Departments</div>
+      <div class="sum-sub" data-i18n="summary.criticalSub">Require immediate action</div>
+    </div>
+    <div class="sum-box" style="border-color:var(--amber);background:rgba(245,158,11,.05)">
+      <div class="sum-val" style="color:var(--amber)" data-i18n="summary.monitor">4 Departments</div>
+      <div class="sum-sub" data-i18n="summary.monitorSub">Require monitoring</div>
+    </div>
+    <div class="sum-box" style="border-color:var(--green);background:rgba(16,185,129,.05)">
+      <div class="sum-val" style="color:var(--green)" data-i18n="summary.stable">4 Departments</div>
+      <div class="sum-sub" data-i18n="summary.stableSub">Operating normally</div>
+    </div>
+  </div>
+</section>
+<hr class="divider"/>
+
+<!-- PREDICTOR -->
+<section id="predictor">
+  <div class="section-label" data-i18n="pred.label">Interactive Model</div>
+  <h2 data-i18n="pred.title">Try the Prediction Engine</h2>
+  <p class="sub" data-i18n="pred.sub">Adjust the staffing signals below. The model predicts risk in real time — exactly as it runs in production.</p>
+  <div class="predictor-grid">
+    <div class="predictor-inputs" id="predictor-inputs">
+      <div class="drag-hint" id="drag-hint">
+        <span class="drag-hint-arrow">←</span>
+        <span data-i18n="pred.dragHint">drag sliders to predict</span>
+        <span class="drag-hint-arrow">→</span>
+      </div>
+      <div class="slider-row">
+        <label><span data-i18n="sl.absence">Absence Rate (1 week)</span><span class="val-badge" id="lbl-absence">5.0%</span></label>
+        <input type="range" id="sl-absence" min="0" max="45" step="0.5" value="5"/>
+        <div class="slider-desc" data-i18n="sl.absenceDesc">% of nurse-days absent. AT_RISK &gt;18% · CRISIS &gt;25%</div>
+      </div>
+      <div class="slider-row">
+        <label><span data-i18n="sl.overtime">Overtime Rate (1 week)</span><span class="val-badge" id="lbl-overtime">12.0%</span></label>
+        <input type="range" id="sl-overtime" min="0" max="60" step="0.5" value="12"/>
+        <div class="slider-desc" data-i18n="sl.overtimeDesc">% of shifts beyond 7.2h/day. Triggers AT_RISK only when rising.</div>
+      </div>
+      <div class="slider-row">
+        <label><span data-i18n="sl.otTrend">Overtime Trend vs 4-week avg</span><span class="val-badge" id="lbl-ot-trend">-1.0%</span></label>
+        <input type="range" id="sl-ot-trend" min="-8" max="12" step="0.5" value="-1"/>
+        <div class="slider-desc" data-i18n="sl.otTrendDesc">Positive = overtime is rising. Required with high overtime for AT_RISK.</div>
+      </div>
+      <div class="slider-row">
+        <label><span data-i18n="sl.shiftoff">Shift Refusal Rate</span><span class="val-badge" id="lbl-shiftoff">0.005</span></label>
+        <input type="range" id="sl-shiftoff" min="0" max="0.40" step="0.005" value="0.005"/>
+        <div class="slider-desc" data-i18n="sl.shiftoffDesc">Shiftoff requests per nurse assignment. AT_RISK &gt;0.15 · CRISIS &gt;0.25</div>
+      </div>
+      <div class="slider-row">
+        <label><span data-i18n="sl.absTrend">Absence Trend vs 4-week avg</span><span class="val-badge" id="lbl-abs-trend">-0.5%</span></label>
+        <input type="range" id="sl-abs-trend" min="-10" max="15" step="0.5" value="-0.5"/>
+        <div class="slider-desc" data-i18n="sl.absTrendDesc">Positive = absence rate is worsening week-over-week.</div>
+      </div>
+      <div class="scenario-btns">
+        <button class="scenario-btn" onclick="setScenario('stable')" style="border:1px solid var(--green);background:rgba(16,185,129,.08);color:var(--green)" data-i18n="scenario.stable">STABLE WARD</button>
+        <button class="scenario-btn" onclick="setScenario('atrisk')" style="border:1px solid var(--amber);background:rgba(245,158,11,.08);color:var(--amber)" data-i18n="scenario.atrisk">AT RISK WARD</button>
+        <button class="scenario-btn" onclick="setScenario('crisis')" style="border:1px solid var(--red);background:rgba(239,68,68,.08);color:var(--red)" data-i18n="scenario.crisis">CRISIS SCENARIO</button>
+      </div>
+    </div>
+    <div class="predictor-result" id="pred-card">
+      <div class="risk-display">
+        <div class="risk-icon-css" id="risk-icon">—</div>
+        <div class="risk-level-label" id="risk-label">—</div>
+        <div class="risk-conf" id="risk-conf" data-i18n="pred.move">Move the sliders to predict</div>
+      </div>
+      <div>
+        <div class="sec-title-sm" data-i18n="pred.probDist">Probability Distribution</div>
+        <div class="prob-bars">
+          <div class="prob-row"><div class="prob-name" style="color:var(--red)" data-i18n="risk.crisis">CRISIS</div><div class="prob-track"><div class="prob-fill" id="pb-crisis" style="background:var(--red);width:0%"></div></div><div class="prob-pct" id="pp-crisis">0%</div></div>
+          <div class="prob-row"><div class="prob-name" style="color:var(--amber)" data-i18n="risk.atrisk">AT RISK</div><div class="prob-track"><div class="prob-fill" id="pb-atrisk" style="background:var(--amber);width:0%"></div></div><div class="prob-pct" id="pp-atrisk">0%</div></div>
+          <div class="prob-row"><div class="prob-name" style="color:var(--green)" data-i18n="risk.stable">STABLE</div><div class="prob-track"><div class="prob-fill" id="pb-stable" style="background:var(--green);width:0%"></div></div><div class="prob-pct" id="pp-stable">0%</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="sec-title-sm" data-i18n="pred.signals">Top Driving Signals</div>
+        <div class="top-signals" id="top-signals"></div>
+      </div>
+      <div class="action-plan" id="action-plan">
+        <div class="ap-title" data-i18n="ap.title">Staffing Action Plan</div>
+
+        <!-- Tier 1: Internal reallocation -->
+        <div class="tier tier-1">
+          <span class="tier-tag tag-best" data-i18n="ap.tag1">① BEST</span>
+          <div class="tier-body">
+            <div class="tier-label" data-i18n="ap.t1label">Internal Reallocation</div>
+            <div class="tier-desc" data-i18n="ap.t1desc">Nurses from stable wards · no extra budget needed</div>
+            <div class="staff-chips" id="staff-chips"></div>
+            <div class="tier-meta" style="color:var(--green)" id="tier1-meta"></div>
+          </div>
+          <span class="tier-rate" style="color:var(--green)">1.0×</span>
+        </div>
+
+        <!-- Tier 2: Planned overtime -->
+        <div class="tier tier-2">
+          <span class="tier-tag tag-mid" data-i18n="ap.tag2">② IF NEEDED</span>
+          <div class="tier-body">
+            <div class="tier-label" data-i18n="ap.t2label">Planned Overtime</div>
+            <div class="tier-desc" data-i18n="ap.t2desc">Remaining hours · advance-scheduled</div>
+            <div class="tier-meta" style="color:var(--amber)" id="tier2-meta"></div>
+          </div>
+          <span class="tier-rate" style="color:var(--amber)">1.25×</span>
+        </div>
+
+        <!-- Tier 3: Agency (last resort) -->
+        <div class="tier tier-3">
+          <span class="tier-tag tag-last" data-i18n="ap.tag3">③ LAST RESORT</span>
+          <div class="tier-body">
+            <div class="tier-label" data-i18n="ap.t3label">Agency Staff (gettonisti)</div>
+            <div class="tier-desc" data-i18n="ap.t3desc">Only if no action taken in time</div>
+            <div class="tier-meta" style="color:var(--red)" id="tier3-meta"></div>
+          </div>
+          <span class="tier-rate" style="color:var(--red)">1.9×</span>
+        </div>
+
+        <hr class="ap-divider"/>
+        <div class="ap-saving">
+          <span data-i18n="ap.saving">Saving vs. waiting for agency</span>
+          <span id="action-save" style="color:var(--green)"></span>
+        </div>
+        <div class="ap-saving-note" data-i18n="ap.note">3-week advance warning makes options ① + ② possible</div>
+      </div>
+    </div>
+  </div>
+</section>
+<hr class="divider"/>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-label" data-i18n="feat.label">Model Intelligence</div>
+  <h2 data-i18n="feat.title">What the Model Learned</h2>
+  <p class="sub" data-i18n="feat.sub">Feature importance by gain — which signals most powerfully separate risk levels. 22 features total, top 10 shown.</p>
+  <div class="feat-chart-wrap"><canvas id="feat-chart"></canvas></div>
+  <div style="margin-top:14px;font-size:11px;color:var(--gray);display:flex;gap:24px;flex-wrap:wrap">
+    <span><span style="color:var(--blue-lt)">■</span> <span data-i18n="feat.note1">Absence signals dominate (54% combined importance)</span></span>
+    <span><span style="color:var(--green)">■</span> <strong style="color:var(--green)">overtime_rising</strong> — <span data-i18n="feat.note2">trend-gated feature · rank #3 · fixes baseline bias</span></span>
+  </div>
+</section>
+<hr class="divider"/>
+
+<!-- VALIDATION -->
+<section id="validation">
+  <div class="section-label" data-i18n="val.label">Model Evidence</div>
+  <h2 data-i18n="val.title">Validation Results</h2>
+  <p class="sub" data-i18n="val.sub">Leave-One-Ward-Out CV — model never trains on the ward it predicts. Simulates deployment to a new hospital.</p>
+  <div class="validation-grid">
+    <div class="val-card">
+      <div class="val-title" data-i18n="val.perfTitle">Per-Class Performance (LOWO CV · 170 samples)</div>
+      <div class="class-metrics">
+        <div class="cm-row"><div class="cm-name" style="color:var(--green)" data-i18n="risk.stable">STABLE</div><div class="cm-bar-wrap"><div class="cm-bar" style="background:var(--green);width:100%"></div></div><div class="cm-pct" style="color:var(--green)">100%</div></div>
+        <div class="cm-note" data-i18n="val.stableNote">Recall · 91 samples · 0 false negatives</div>
+        <div class="cm-row" style="margin-top:6px"><div class="cm-name" style="color:var(--amber)" data-i18n="risk.atrisk">AT RISK</div><div class="cm-bar-wrap"><div class="cm-bar" style="background:var(--amber);width:92%"></div></div><div class="cm-pct" style="color:var(--amber)">92%</div></div>
+        <div class="cm-note" data-i18n="val.atriskNote">Recall · 50 samples</div>
+        <div class="cm-row" style="margin-top:6px"><div class="cm-name" style="color:var(--red)" data-i18n="risk.crisis">CRISIS</div><div class="cm-bar-wrap"><div class="cm-bar" style="background:var(--red);width:97%"></div></div><div class="cm-pct" style="color:var(--red)">97%</div></div>
+        <div class="cm-note" data-i18n="val.crisisNote">Recall · 29 samples · 28/29 caught</div>
+      </div>
+      <div class="accuracy-pair">
+        <div><div class="acc-val">97.1%</div><div class="acc-lbl" data-i18n="val.overallAcc">Overall Accuracy</div></div>
+        <div><div class="acc-val">0.97</div><div class="acc-lbl" data-i18n="val.f1">Macro F1 Score</div></div>
+      </div>
+    </div>
+    <div class="val-card">
+      <div class="val-title" data-i18n="val.methodTitle">Methodology &amp; Compliance</div>
+      <div style="display:flex;flex-direction:column;gap:9px">
+        <div class="method-row"><span class="method-key" data-i18n="val.m1k">Data source</span><span data-i18n="val.m1v">34 real Italian hospital wards (Ceschia et al., 2023)</span></div>
+        <div class="method-row"><span class="method-key" data-i18n="val.m2k">Model</span><span data-i18n="val.m2v">XGBoost multiclass classifier (3 risk levels)</span></div>
+        <div class="method-row"><span class="method-key" data-i18n="val.m3k">Validation</span><span data-i18n="val.m3v">Leave-One-Ward-Out CV — 10 folds, 170 samples</span></div>
+        <div class="method-row"><span class="method-key" data-i18n="val.m4k">Temporal CV</span><span data-i18n="val.m4v">Train weeks 1–4, predict week 5 → 97.1%</span></div>
+        <div class="method-row"><span class="method-key" data-i18n="val.m5k">Privacy</span><span data-i18n="val.m5v">Zero personal data — anonymous IDs only</span></div>
+        <div class="method-row"><span class="method-key" data-i18n="val.m6k">Compliance</span><span data-i18n="val.m6v">GDPR Art.89 · EU AI Act ready</span></div>
+        <div class="method-row"><span class="method-key" data-i18n="val.m7k">Not a device</span><span data-i18n="val.m7v">Operational AI only — NOT a medical device</span></div>
+      </div>
+      <div style="margin-top:16px;padding:10px 12px;background:rgba(16,185,129,.07);border:1px solid var(--green);border-radius:6px;font-size:11px;color:var(--green)" data-i18n="val.privacy">
+        MindMedix AI never processes patient data or personal nurse identifiers.
+      </div>
+    </div>
+  </div>
+</section>
+<hr class="divider"/>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-label" data-i18n="how.label">Platform Pipeline</div>
+  <h2 data-i18n="how.title">How It Works</h2>
+  <p class="sub" data-i18n="how.sub">Four automated steps from raw scheduling data to actionable staffing decision.</p>
+  <div class="pipeline">
+    <div class="pipe-step" style="background:var(--card)"><div class="pipe-num">01</div><div class="pipe-title" data-i18n="pipe.t1">Data Ingestion</div><div class="pipe-desc" data-i18n="pipe.d1">Anonymised shift rosters and absence records from your HR system. No patient data ever touched.</div><div class="pipe-tag" data-i18n="pipe.tag1">Zucchetti · TeamSystem · HL7</div></div>
+    <div class="pipe-step" style="background:var(--navy)"><div class="pipe-num">02</div><div class="pipe-title" data-i18n="pipe.t2">Signal Extraction</div><div class="pipe-desc" data-i18n="pipe.d2">22 weekly features per ward: absence rates, overtime trends, fatigue indices, shift refusals — rolling 4-week windows.</div><div class="pipe-tag">22 Features · Rolling 4-week</div></div>
+    <div class="pipe-step" style="background:var(--card)"><div class="pipe-num">03</div><div class="pipe-title" data-i18n="pipe.t3">Risk Prediction</div><div class="pipe-desc" data-i18n="pipe.d3">XGBoost classifier outputs STABLE / AT_RISK / CRISIS with confidence scores and top driving signals per ward.</div><div class="pipe-tag">97.1% Accuracy · 97% Crisis Recall</div></div>
+    <div class="pipe-step" style="background:var(--navy)"><div class="pipe-num">04</div><div class="pipe-title" data-i18n="pipe.t4">Action Report</div><div class="pipe-desc" data-i18n="pipe.d4">Weekly dashboard: which wards to act on, available staff IDs, and the cost differential of acting now vs waiting.</div><div class="pipe-tag" data-i18n="pipe.tag4">3-week advance warning</div></div>
+  </div>
+  <div class="cost-cards">
+    <div class="cost-card"><div class="cost-card-sub" data-i18n="costcard.actSub">Cost if you act now</div><div class="cost-card-val" style="color:var(--green)">1.25×</div><div class="cost-card-note" data-i18n="costcard.actNote">Planned overtime — €18.5/h × 1.25</div></div>
+    <div class="cost-card"><div class="cost-card-sub" data-i18n="costcard.waitSub">Cost if you wait</div><div class="cost-card-val" style="color:var(--red)">1.90×</div><div class="cost-card-note" data-i18n="costcard.waitNote">Agency (gettonisti) — €35/h gross</div></div>
+    <div class="cost-card" style="background:rgba(16,185,129,.06);border-color:var(--green)"><div class="cost-card-sub" data-i18n="costcard.saveSub">Avg saving per crisis prevented</div><div class="cost-card-val" style="color:var(--green)">€2,400</div><div class="cost-card-note" data-i18n="costcard.saveNote">Per ward event · scales with hospital size</div></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-eyebrow" data-i18n="cta.eyebrow">Ready to run a pilot?</div>
+    <h2 class="cta-title" data-i18n="cta.title">48-hour setup. Zero risk. Immediate insight.</h2>
+    <p class="cta-sub" data-i18n="cta.sub">Connect your existing HR scheduling data and receive your first staffing risk report within 48 hours. No infrastructure changes. No personal data required.</p>
+    <div class="cta-actions">
+      <a href="https://calendly.com/hamdysassy7/intro" class="btn-primary" target="_blank" data-i18n="cta.btn1">Schedule a Pilot →</a>
+      <a href="/MindMedix_Sample_Report.pdf" class="btn-outline" download="MindMedix_Sample_Report.pdf" data-i18n="cta.btn2">Download Sample Report</a>
+    </div>
+    <div class="cta-badges">
+      <span class="cta-badge"><span class="cta-check">✓</span> <span data-i18n="cta.b1">GDPR compliant</span></span>
+      <span class="cta-badge"><span class="cta-check">✓</span> <span data-i18n="cta.b2">EU AI Act ready</span></span>
+      <span class="cta-badge"><span class="cta-check">✓</span> <span data-i18n="cta.b3">Not a medical device</span></span>
+      <span class="cta-badge"><span class="cta-check">✓</span> <span data-i18n="cta.b4">No patient data</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div style="background:var(--navy);border-top:1px solid var(--line)">
+  <footer>
+    <div>
+      <strong>MindMedix AI</strong> — <span data-i18n="footer.tagline">Hospital Workforce Intelligence</span><br>
+      <span data-i18n="footer.note">Illustrative demo · Based on anonymised Italian hospital data (Ceschia et al., 2023)</span>
+    </div>
+    <div style="text-align:right">
+      <a href="https://mindmedixai.health/en">mindmedixai.health</a><br>
+      <span>GDPR · EU AI Act · <span data-i18n="footer.notDevice">Not a medical device</span></span>
+    </div>
+  </footer>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════════════════════
+// TRANSLATIONS
+// ══════════════════════════════════════════════════════════════════════════
+const T = {
+  en: {
+    'nav.overview':'Overview','nav.predictor':'Try the Model','nav.features':'Signals',
+    'nav.validation':'Validation','nav.how':'How It Works',
+    'hero.eyebrow':'Hospital Workforce Intelligence',
+    'hero.h1':'Predict staffing crises <em>3 weeks</em> before they happen',
+    'hero.sub':'MindMedix AI analyses shift rosters and absence patterns to give hospital operations managers an early warning — with enough time to act on it, not react to it.',
+    'hero.cta1':'Try the Model →','hero.cta2':'Book a Call →',
+    'hero.cardTitle':'Current Week — All Departments',
+    'hero.moreText':'+ 5 more departments below ↓',
+    'stats.accuracy':'Overall Accuracy','stats.accuracyNote':'LOWO cross-validation · 10 folds',
+    'stats.recall':'Crisis Recall','stats.recallNote':'28 / 29 crisis events caught',
+    'stats.wards':'Real Hospital Wards','stats.wardsNote':'Italian NHS data · Ceschia 2023',
+    'stats.weeks':'3 Weeks','stats.weeksLbl':'Advance Warning','stats.weeksNote':'Before shortage becomes critical',
+    'overview.label':'Hospital Intelligence Board','overview.title':'All Departments — Current Week',
+    'overview.sub':'Staffing risk across all 10 wards. Color-coded by severity. Sparklines show 6-week trend.',
+    'alert.heading':'2 CRITICAL ALERTS',
+    'alert.body':'Cardiologia and Terapia Intensiva require immediate action. Predicted 3 weeks in advance. Estimated combined saving:',
+    'alert.suffix':'by acting now vs agency staff.',
+    'table.dept':'Department / Reparto','table.risk':'Risk Level','table.prob':'Probability',
+    'table.trend':'6-Week Trend & Key Signal','table.time':'Time to Act','table.action':'Action',
+    'summary.critical':'2 Departments','summary.criticalSub':'Require immediate action',
+    'summary.monitor':'4 Departments','summary.monitorSub':'Require monitoring',
+    'summary.stable':'4 Departments','summary.stableSub':'Operating normally',
+    'badge.crisis':'CRISIS','badge.atrisk':'AT RISK','badge.stable':'STABLE',
+    'action.urgent':'URGENT','action.urgentIt':'Urgente',
+    'action.monitor':'MONITOR','action.monitorIt':'Monitorare',
+    'action.none':'NONE','action.noneIt':'Nessuna',
+    'dept.subLabel': 'en',
+    'pred.label':'Interactive Model','pred.title':'Try the Prediction Engine',
+    'pred.sub':'Adjust the staffing signals below. The model predicts risk in real time — exactly as it runs in production.',
+    'pred.move':'Move the sliders to predict',
+    'pred.dragHint':'drag sliders to predict',
+    'pred.probDist':'Probability Distribution','pred.signals':'Top Driving Signals',
+    'sl.absence':'Absence Rate (1 week)','sl.absenceDesc':'% of nurse-days absent. AT_RISK >18% · CRISIS >25%',
+    'sl.overtime':'Overtime Rate (1 week)','sl.overtimeDesc':'% of shifts beyond 7.2h/day. Triggers AT_RISK only when rising.',
+    'sl.otTrend':'Overtime Trend vs 4-week avg','sl.otTrendDesc':'Positive = overtime is rising. Required with high overtime for AT_RISK.',
+    'sl.shiftoff':'Shift Refusal Rate','sl.shiftoffDesc':'Shiftoff requests per nurse assignment. AT_RISK >0.15 · CRISIS >0.25',
+    'sl.absTrend':'Absence Trend vs 4-week avg','sl.absTrendDesc':'Positive = absence rate is worsening week-over-week.',
+    'scenario.stable':'STABLE WARD','scenario.atrisk':'AT RISK WARD','scenario.crisis':'CRISIS SCENARIO',
+    'risk.crisis':'CRISIS','risk.atrisk':'AT RISK','risk.stable':'STABLE',
+    'risk.conf':'Confidence:','pred.noSignals':'No elevated signals — ward appears stable.',
+    'ap.title':'STAFFING ACTION PLAN',
+    'ap.tag1':'① BEST','ap.t1label':'Internal Reallocation','ap.t1desc':'Nurses from stable wards · no extra budget needed',
+    'ap.tag2':'② IF NEEDED','ap.t2label':'Planned Overtime','ap.t2desc':'Remaining hours · advance-scheduled',
+    'ap.tag3':'③ LAST RESORT','ap.t3label':'Agency Staff (gettonisti)','ap.t3desc':'Only if no action taken in time',
+    'ap.saving':'Saving vs. waiting for agency','ap.note':'3-week advance warning makes options ① + ② possible',
+    'feat.label':'Model Intelligence','feat.title':'What the Model Learned',
+    'feat.sub':'Feature importance by gain — which signals most powerfully separate risk levels. 22 features total, top 10 shown.',
+    'feat.note1':'Absence signals dominate (54% combined importance)',
+    'feat.note2':'trend-gated feature · rank #3 · fixes baseline bias',
+    'val.label':'Model Evidence','val.title':'Validation Results',
+    'val.sub':'Leave-One-Ward-Out CV — model never trains on the ward it predicts. Simulates deployment to a new hospital.',
+    'val.perfTitle':'Per-Class Performance (LOWO CV · 170 samples)',
+    'val.stableNote':'Recall · 91 samples · 0 false negatives',
+    'val.atriskNote':'Recall · 50 samples',
+    'val.crisisNote':'Recall · 29 samples · 28/29 caught',
+    'val.overallAcc':'Overall Accuracy','val.f1':'Macro F1 Score',
+    'val.methodTitle':'Methodology & Compliance',
+    'val.m1k':'Data source','val.m1v':'34 real Italian hospital wards (Ceschia et al., 2023)',
+    'val.m2k':'Model','val.m2v':'XGBoost multiclass classifier (3 risk levels)',
+    'val.m3k':'Validation','val.m3v':'Leave-One-Ward-Out CV — 10 folds, 170 samples',
+    'val.m4k':'Temporal CV','val.m4v':'Train weeks 1–4, predict week 5 → 97.1%',
+    'val.m5k':'Privacy','val.m5v':'Zero personal data — anonymous IDs only',
+    'val.m6k':'Compliance','val.m6v':'GDPR Art.89 · EU AI Act ready',
+    'val.m7k':'Not a device','val.m7v':'Operational AI only — NOT a medical device',
+    'val.privacy':'MindMedix AI never processes patient data or personal nurse identifiers.',
+    'how.label':'Platform Pipeline','how.title':'How It Works',
+    'how.sub':'Four automated steps from raw scheduling data to actionable staffing decision.',
+    'pipe.t1':'Data Ingestion','pipe.d1':'Anonymised shift rosters and absence records from your HR system. No patient data ever touched.',
+    'pipe.tag1':'Zucchetti · TeamSystem · HL7',
+    'pipe.t2':'Signal Extraction','pipe.d2':'22 weekly features per ward: absence rates, overtime trends, fatigue indices, shift refusals — rolling 4-week windows.',
+    'pipe.t3':'Risk Prediction','pipe.d3':'XGBoost classifier outputs STABLE / AT_RISK / CRISIS with confidence scores and top driving signals per ward.',
+    'pipe.t4':'Action Report','pipe.d4':'Weekly dashboard: which wards to act on, available staff IDs, and the cost differential of acting now vs waiting.',
+    'pipe.tag4':'3-week advance warning',
+    'costcard.actSub':'Cost if you act now','costcard.actNote':'Planned overtime — €18.5/h × 1.25',
+    'costcard.waitSub':'Cost if you wait','costcard.waitNote':'Agency (gettonisti) — €35/h gross',
+    'costcard.saveSub':'Avg saving per crisis prevented','costcard.saveNote':'Per ward event · scales with hospital size',
+    'cta.eyebrow':'Ready to run a pilot?',
+    'cta.title':'48-hour setup. Zero risk. Immediate insight.',
+    'cta.sub':'Connect your existing HR scheduling data and receive your first staffing risk report within 48 hours. No infrastructure changes. No personal data required.',
+    'cta.btn1':'Book a Call — 30 min →','cta.btn2':'Download Sample Report',
+    'cta.b1':'GDPR compliant','cta.b2':'EU AI Act ready','cta.b3':'Not a medical device','cta.b4':'No patient data',
+    'footer.tagline':'Hospital Workforce Intelligence',
+    'footer.note':'Illustrative demo · Based on anonymised Italian hospital data (Ceschia et al., 2023)',
+    'footer.notDevice':'Not a medical device',
+  },
+  it: {
+    'nav.overview':'Panoramica','nav.predictor':'Prova il Modello','nav.features':'Segnali',
+    'nav.validation':'Validazione','nav.how':'Come Funziona',
+    'hero.eyebrow':'Intelligenza per il Personale Ospedaliero',
+    'hero.h1':'Prevedi le crisi del personale <em>3 settimane</em> prima che accadano',
+    'hero.sub':'MindMedix AI analizza i turni e le assenze per dare ai responsabili operativi un sistema di allerta precoce — con abbastanza tempo per agire, non solo reagire.',
+    'hero.cta1':'Prova il Modello →','hero.cta2':'Prenota una Call →',
+    'hero.cardTitle':'Settimana Corrente — Tutti i Reparti',
+    'hero.moreText':'+ 5 altri reparti qui sotto ↓',
+    'stats.accuracy':'Accuratezza Complessiva','stats.accuracyNote':'LOWO cross-validation · 10 fold',
+    'stats.recall':'Rilevamento Crisi','stats.recallNote':'28 / 29 crisi rilevate',
+    'stats.wards':'Reparti Ospedalieri Reali','stats.wardsNote':'Dati NHS italiani · Ceschia 2023',
+    'stats.weeks':'3 Settimane','stats.weeksLbl':'Anticipo','stats.weeksNote':'Prima che la carenza diventi critica',
+    'overview.label':'Cruscotto Intelligenza Ospedaliera','overview.title':'Tutti i Reparti — Settimana Corrente',
+    'overview.sub':'Rischio del personale in tutti i 10 reparti. Codice colore per gravità. Sparkline = trend 6 settimane.',
+    'alert.heading':'2 ALLERTE CRITICHE',
+    'alert.body':'Cardiologia e Terapia Intensiva richiedono intervento immediato. Previsto 3 settimane in anticipo. Risparmio combinato stimato:',
+    'alert.suffix':'agendo ora rispetto al personale agenzia.',
+    'table.dept':'Reparto','table.risk':'Livello di Rischio','table.prob':'Probabilità',
+    'table.trend':'Trend 6 Settimane & Segnale Chiave','table.time':'Tempo per Agire','table.action':'Azione',
+    'summary.critical':'2 Reparti','summary.criticalSub':'Richiedono intervento immediato',
+    'summary.monitor':'4 Reparti','summary.monitorSub':'Richiedono monitoraggio',
+    'summary.stable':'4 Reparti','summary.stableSub':'In normale operatività',
+    'badge.crisis':'CRISI','badge.atrisk':'A RISCHIO','badge.stable':'STABILE',
+    'action.urgent':'URGENTE','action.urgentIt':'Urgente',
+    'action.monitor':'MONITORARE','action.monitorIt':'Monitorare',
+    'action.none':'NESSUNA','action.noneIt':'Nessuna',
+    'dept.subLabel': 'it',
+    'pred.label':'Modello Interattivo','pred.title':'Prova il Motore di Previsione',
+    'pred.sub':'Regola i segnali qui sotto. Il modello prevede il rischio in tempo reale — esattamente come funziona in produzione.',
+    'pred.move':'Sposta i cursori per prevedere',
+    'pred.dragHint':'trascina i cursori per prevedere',
+    'pred.probDist':'Distribuzione delle Probabilità','pred.signals':'Principali Segnali Trainanti',
+    'sl.absence':'Tasso di Assenza (1 settimana)','sl.absenceDesc':'% giornate infermieri assenti. A RISCHIO >18% · CRISI >25%',
+    'sl.overtime':'Tasso di Straordinario (1 settimana)','sl.overtimeDesc':'% turni oltre 7.2h/giorno. Attiva A RISCHIO solo se in crescita.',
+    'sl.otTrend':'Trend Straordinario vs media 4 settimane','sl.otTrendDesc':'Positivo = straordinario in aumento. Richiesto con alto straordinario per A RISCHIO.',
+    'sl.shiftoff':'Tasso di Rifiuto Turni','sl.shiftoffDesc':'Richieste per assegnazione infermiere. A RISCHIO >0.15 · CRISI >0.25',
+    'sl.absTrend':'Trend Assenze vs media 4 settimane','sl.absTrendDesc':'Positivo = tasso di assenza in peggioramento settimana su settimana.',
+    'scenario.stable':'REPARTO STABILE','scenario.atrisk':'REPARTO A RISCHIO','scenario.crisis':'SCENARIO DI CRISI',
+    'risk.crisis':'CRISI','risk.atrisk':'A RISCHIO','risk.stable':'STABILE',
+    'risk.conf':'Confidenza:','pred.noSignals':'Nessun segnale elevato — reparto stabile.',
+    'ap.title':'PIANO D\'AZIONE',
+    'ap.tag1':'① OTTIMALE','ap.t1label':'Riassegnazione Interna','ap.t1desc':'Infermieri da reparti stabili · nessun costo extra',
+    'ap.tag2':'② SE NECESSARIO','ap.t2label':'Straordinario Pianificato','ap.t2desc':'Ore rimanenti · programmato in anticipo',
+    'ap.tag3':'③ ULTIMA RISORSA','ap.t3label':'Personale Agenzia (gettonisti)','ap.t3desc':'Solo se non si agisce in tempo',
+    'ap.saving':'Risparmio vs. attesa agenzia','ap.note':'3 settimane di anticipo rendono le opzioni ① + ② possibili',
+    'feat.label':'Intelligenza del Modello','feat.title':'Cosa Ha Imparato il Modello',
+    'feat.sub':'Importanza delle feature per guadagno — quali segnali separano meglio i livelli di rischio. 22 feature totali, top 10 mostrate.',
+    'feat.note1':'I segnali di assenza dominano (54% importanza combinata)',
+    'feat.note2':'feature a soglia trend · rank #3 · corregge bias baseline',
+    'val.label':'Evidenza del Modello','val.title':'Risultati di Validazione',
+    'val.sub':'LOWO CV — il modello non si allena mai sul reparto che prevede. Simula il deployment in un nuovo ospedale.',
+    'val.perfTitle':'Performance per Classe (LOWO CV · 170 campioni)',
+    'val.stableNote':'Recall · 91 campioni · 0 falsi negativi',
+    'val.atriskNote':'Recall · 50 campioni',
+    'val.crisisNote':'Recall · 29 campioni · 28/29 crisi rilevate',
+    'val.overallAcc':'Accuratezza Complessiva','val.f1':'Macro F1 Score',
+    'val.methodTitle':'Metodologia e Conformità',
+    'val.m1k':'Fonte dati','val.m1v':'34 reparti ospedalieri italiani reali (Ceschia et al., 2023)',
+    'val.m2k':'Modello','val.m2v':'Classificatore XGBoost multiclasse (3 livelli di rischio)',
+    'val.m3k':'Validazione','val.m3v':'Leave-One-Ward-Out CV — 10 fold, 170 campioni',
+    'val.m4k':'CV Temporale','val.m4v':'Train settimane 1–4, previsione settimana 5 → 97.1%',
+    'val.m5k':'Privacy','val.m5v':'Nessun dato personale — solo ID anonimi',
+    'val.m6k':'Conformità','val.m6v':'GDPR Art.89 · Pronto EU AI Act',
+    'val.m7k':'Non è un dispositivo','val.m7v':'Solo AI operativa — NON è un dispositivo medico',
+    'val.privacy':'MindMedix AI non elabora mai dati paziente o identificatori personali degli infermieri.',
+    'how.label':'Pipeline della Piattaforma','how.title':'Come Funziona',
+    'how.sub':'Quattro passaggi automatizzati dai dati grezzi alla decisione operativa.',
+    'pipe.t1':'Acquisizione Dati','pipe.d1':'Turni anonimi e registri delle assenze dal tuo sistema HR. Nessun dato paziente mai toccato.',
+    'pipe.tag1':'Zucchetti · TeamSystem · HL7',
+    'pipe.t2':'Estrazione Segnali','pipe.d2':'22 feature settimanali per reparto: tassi di assenza, trend straordinari, indici di fatica, rifiuti turno — finestre di 4 settimane.',
+    'pipe.t3':'Previsione del Rischio','pipe.d3':'Il classificatore XGBoost restituisce STABILE / A RISCHIO / CRISI con punteggi di confidenza e segnali trainanti per reparto.',
+    'pipe.t4':'Report di Azione','pipe.d4':'Cruscotto settimanale: quali reparti richiedono azione, ID del personale disponibile e differenziale di costo.',
+    'pipe.tag4':'3 settimane di anticipo',
+    'costcard.actSub':'Costo se agisci ora','costcard.actNote':'Straordinario pianificato — €18.5/h × 1.25',
+    'costcard.waitSub':'Costo se aspetti','costcard.waitNote':'Agenzia (gettonisti) — €35/h lordi',
+    'costcard.saveSub':'Risparmio medio per crisi prevenuta','costcard.saveNote':'Per evento reparto · scala con dimensione ospedale',
+    'cta.eyebrow':'Pronto per un Pilot?',
+    'cta.title':'Setup 48 ore. Rischio zero. Insight immediato.',
+    'cta.sub':'Collega i tuoi dati di scheduling HR esistenti e ricevi il tuo primo report di rischio del personale entro 48 ore. Nessuna modifica infrastrutturale. Nessun dato personale richiesto.',
+    'cta.btn1':'Prenota una Call — 30 min →','cta.btn2':'Scarica Report di Esempio',
+    'cta.b1':'Conforme GDPR','cta.b2':'Pronto EU AI Act','cta.b3':'Non è un dispositivo medico','cta.b4':'Nessun dato paziente',
+    'footer.tagline':'Intelligenza per il Personale Ospedaliero',
+    'footer.note':'Demo illustrativa · Basata su dati ospedalieri italiani anonimi (Ceschia et al., 2023)',
+    'footer.notDevice':'Non è un dispositivo medico',
+  }
+};
+
+// ── DEPT DATA ────────────────────────────────────────────────────────────
+const DEPTS = [
+  { name:'Cardiologia',        en:'Cardiology',       it:'Cardiologia',       risk:2, prob:.87, signal:{en:'Absence 27.7% ↑',  it:'Assenza 27.7% ↑'},  time:{en:'2 weeks',it:'2 settimane'}, action:'URGENT',  history:[14.2,16.8,19.1,23.4,25.1,27.7] },
+  { name:'Terapia Intensiva',  en:'Intensive Care',   it:'Terapia Intensiva', risk:2, prob:.91, signal:{en:'Overtime 48.3% ↑', it:'Straord. 48.3% ↑'}, time:{en:'1 week', it:'1 settimana'}, action:'URGENT',  history:[18.5,24.3,30.1,36.8,42.5,48.3] },
+  { name:'Ortopedia',          en:'Orthopedics',      it:'Ortopedia',         risk:1, prob:.54, signal:{en:'Absence 18.5% ↑',  it:'Assenza 18.5% ↑'},  time:{en:'4 weeks',it:'4 settimane'}, action:'MONITOR', history:[12.1,13.5,14.2,15.8,17.1,18.5] },
+  { name:'Chirurgia Generale', en:'General Surgery',  it:'Chirurgia Generale',risk:1, prob:.58, signal:{en:'Absence 19.2% ↑',  it:'Assenza 19.2% ↑'},  time:{en:'4 weeks',it:'4 settimane'}, action:'MONITOR', history:[11.8,13.2,14.7,16.1,17.8,19.2] },
+  { name:'Pronto Soccorso',    en:'Emergency',        it:'Pronto Soccorso',   risk:1, prob:.62, signal:{en:'Refusals +8 ↑',    it:'Rifiuti +8 ↑'},     time:{en:'3 weeks',it:'3 settimane'}, action:'MONITOR', history:[13.5,14.1,15.3,16.2,17.4,18.9] },
+  { name:'Geriatria',          en:'Geriatrics',       it:'Geriatria',         risk:1, prob:.55, signal:{en:'Absence 20.5% ↑',  it:'Assenza 20.5% ↑'},  time:{en:'4 weeks',it:'4 settimane'}, action:'MONITOR', history:[14.8,15.6,16.9,18.1,19.4,20.5] },
+  { name:'Medicina Interna',   en:'Internal Medicine',it:'Medicina Interna',  risk:0, prob:.12, signal:{en:'Absence 5.1% ↓',   it:'Assenza 5.1% ↓'},   time:{en:'—',      it:'—'},           action:'NONE',    history:[8.2,7.5,6.9,6.3,5.8,5.1] },
+  { name:'Oncologia',          en:'Oncology',         it:'Oncologia',         risk:0, prob:.09, signal:{en:'Absence 7.2% ↓',   it:'Assenza 7.2% ↓'},   time:{en:'—',      it:'—'},           action:'NONE',    history:[9.1,8.4,8.0,7.7,7.4,7.2] },
+  { name:'Neurologia',         en:'Neurology',        it:'Neurologia',        risk:0, prob:.14, signal:{en:'Absence 8.1% ↓',   it:'Assenza 8.1% ↓'},   time:{en:'—',      it:'—'},           action:'NONE',    history:[10.2,9.5,8.9,8.4,8.2,8.1] },
+  { name:'Pediatria',          en:'Pediatrics',       it:'Pediatria',         risk:0, prob:.06, signal:{en:'Absence 4.3% ↓',   it:'Assenza 4.3% ↓'},   time:{en:'—',      it:'—'},           action:'NONE',    history:[5.8,5.1,4.9,4.6,4.4,4.3] },
+];
+
+const RISK_COLOR = { 2:'var(--red)', 1:'var(--amber)', 0:'var(--green)' };
+
+function sparkline(data, color) {
+  const W=60,H=20,p=2;
+  const mn=Math.min(...data), mx=Math.max(...data), range=mx-mn||1;
+  const pts=data.map((v,i)=>{ const x=p+(i/(data.length-1))*(W-p*2); const y=p+(1-(v-mn)/range)*(H-p*2); return `${x.toFixed(1)},${y.toFixed(1)}`; }).join(' ');
+  const lx=pts.split(' ').pop().split(',')[0], ly=pts.split(' ').pop().split(',')[1];
+  return `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" fill="none"><polyline points="${pts}" stroke="${color}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${lx}" cy="${ly}" r="2.5" fill="${color}"/></svg>`;
+}
+
+let currentLang = 'en';
+
+function applyLang(lang) {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (T[lang][key] !== undefined) el.textContent = T[lang][key];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    if (T[lang][key] !== undefined) el.innerHTML = T[lang][key];
+  });
+  document.getElementById('btn-en').classList.toggle('active', lang==='en');
+  document.getElementById('btn-it').classList.toggle('active', lang==='it');
+  renderTable(lang);
+  renderHeroMini(lang);
+  updatePredictor();
+}
+
+function setLang(lang) {
+  currentLang = lang;
+  applyLang(lang);
+}
+
+function renderTable(lang) {
+  const l = lang || currentLang;
+  document.getElementById('dept-tbody').innerHTML = DEPTS.map(d => {
+    const col = d.risk===2?'#EF4444':d.risk===1?'#F59E0B':'#10B981';
+    const sp  = sparkline(d.history, col);
+    const badgeLbl = T[l][`badge.${d.risk===2?'crisis':d.risk===1?'atrisk':'stable'}`];
+    const badgeCls = d.risk===2?'badge-crisis':d.risk===1?'badge-atrisk':'badge-stable';
+    const actKey   = d.action.toLowerCase();
+    const actLabel = T[l][`action.${actKey}`];
+    const actItLbl = T[l][`action.${actKey}It`];
+    const actCls   = `action-${actKey}`;
+    const subLabel = l==='en' ? d.en : d.it;
+    return `<tr>
+      <td><div class="dept-name-cell"><div class="dept-bar" style="background:${RISK_COLOR[d.risk]}"></div><div class="dept-info"><span class="dept-info-name">${d.name}</span><span class="dept-info-sub">${subLabel}</span></div></div></td>
+      <td><span class="badge ${badgeCls}">${badgeLbl}</span></td>
+      <td class="prob-cell" style="color:${RISK_COLOR[d.risk]}">${Math.round(d.prob*100)}%</td>
+      <td><div class="spark-cell">${sp}<span class="spark-signal">${d.signal[l]}</span></div></td>
+      <td style="color:var(--gray);font-size:12px">${d.time[l]}</td>
+      <td><span class="${actCls}">${actLabel}<span class="it-label">${actItLbl}</span></span></td>
+    </tr>`;
+  }).join('');
+}
+
+function renderHeroMini(lang) {
+  const l = lang || currentLang;
+  document.getElementById('hero-mini-list').innerHTML = DEPTS.slice(0,5).map(d => {
+    const col = d.risk===2?'#EF4444':d.risk===1?'#F59E0B':'#10B981';
+    const bg  = d.risk===2?'rgba(239,68,68,.15)':d.risk===1?'rgba(245,158,11,.15)':'rgba(16,185,129,.15)';
+    const lbl = T[l][`badge.${d.risk===2?'crisis':d.risk===1?'atrisk':'stable'}`];
+    const sub = l==='en' ? d.en : d.it;
+    return `<div class="mini-dept-row"><div class="mini-dot" style="background:${col}"></div><span class="mini-name">${d.name}</span><span class="mini-badge" style="background:${bg};color:${col}">${lbl}</span><span class="mini-pct" style="color:${col}">${Math.round(d.prob*100)}%</span></div>`;
+  }).join('') + `<div style="font-size:10px;color:var(--gray);text-align:center;padding:6px 0">${T[l]['hero.moreText']}</div>`;
+}
+
+// ── STATS COUNTER ─────────────────────────────────────────────────────────
+function animateCount(id, target, suffix, duration) {
+  const el = document.getElementById(id);
+  const start = performance.now();
+  (function step(now) {
+    const t = Math.min((now-start)/duration, 1);
+    const e = 1-Math.pow(1-t,3);
+    el.textContent = Math.round(target*e)+suffix;
+    if (t<1) requestAnimationFrame(step);
+  })(start);
+}
+new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    animateCount('cnt-accuracy',97,'%',1200);
+    animateCount('cnt-recall',  97,'%',1200);
+    animateCount('cnt-hospitals',34,'',900);
+  }
+},{ threshold:.5 }).observe(document.querySelector('.stats-bar'));
+
+// ── ACTIVE NAV ────────────────────────────────────────────────────────────
+const navLinks = document.querySelectorAll('.nav-pills a');
+new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) navLinks.forEach(a => a.classList.toggle('active', a.dataset.section===e.target.id)); });
+},{ threshold:.35 }).observe;
+document.querySelectorAll('section[id]').forEach(s =>
+  new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) navLinks.forEach(a => a.classList.toggle('active', a.dataset.section===e.target.id)); });
+  },{ threshold:.35 }).observe(s)
+);
+
+// ── PREDICTOR ─────────────────────────────────────────────────────────────
+const SL  = { absence:document.getElementById('sl-absence'), overtime:document.getElementById('sl-overtime'), otTrend:document.getElementById('sl-ot-trend'), shiftoff:document.getElementById('sl-shiftoff'), absTrend:document.getElementById('sl-abs-trend') };
+const LBL = { absence:document.getElementById('lbl-absence'), overtime:document.getElementById('lbl-overtime'), otTrend:document.getElementById('lbl-ot-trend'), shiftoff:document.getElementById('lbl-shiftoff'), absTrend:document.getElementById('lbl-abs-trend') };
+
+const RISK_ICON_STYLE = { 2:{bg:'rgba(239,68,68,.18)',color:'#EF4444',text:'!'}, 1:{bg:'rgba(245,158,11,.18)',color:'#F59E0B',text:'▲'}, 0:{bg:'rgba(16,185,129,.18)',color:'#10B981',text:'✓'} };
+const RISK_BORDER     = { 2:'#EF4444', 1:'#F59E0B', 0:'#1E2D4A' };
+
+function predict(f) {
+  const {absence:a1,overtime:o1,otTrend:ot,shiftoff:sr,absTrend:at} = f;
+  const ot_risk = o1>35 && ot>1.5;
+  let cls = (a1>25||sr>.25||o1>50) ? 2 : (a1>18||sr>.15||ot_risk) ? 1 : 0;
+  const cs = Math.max(0,(a1-25)/20,(o1-50)/20,(sr-.25)/.25);
+  const as = Math.max(0,(a1-18)/15,((o1-35)*Math.max(0,ot-1.5))/(75),(sr-.15)/.15);
+  const tb = Math.max(0,at/20);
+  let p2,p1,p0;
+  if (cls===2) { p2=Math.min(.98,.65+cs*.33+tb*.05); p1=(1-p2)*.55; p0=1-p2-p1; }
+  else if (cls===1) { p1=Math.min(.97,.55+as*.42+tb*.06); p2=Math.max(0,(as-.5)*.15); p0=1-p1-p2; }
+  else { p0=Math.min(.99,.72+(1-Math.max(as,cs))*.25); p1=(1-p0)*.6; p2=1-p0-p1; }
+  p0=Math.max(.001,p0); p1=Math.max(.001,p1); p2=Math.max(.001,p2);
+  const sigs=[
+    {key:'absence', val:a1.toFixed(1)+'%', weight:.241, active:a1>10, flag:a1>25?'high':a1>18?'up':null},
+    {key:'absTrend',val:(at>=0?'+':'')+at.toFixed(1)+'%',weight:.063,active:at>1, flag:at>5?'high':'up'},
+    {key:'overtime',val:o1.toFixed(1)+'%', weight:.154, active:o1>25, flag:o1>50?'high':o1>35?'up':null},
+    {key:'otTrend', val:(ot>=0?'+':'')+ot.toFixed(1)+'%',weight:.075,active:ot>1.5,flag:'up'},
+    {key:'shiftoff',val:sr.toFixed(3),      weight:.042, active:sr>.05, flag:sr>.25?'high':sr>.15?'up':null},
+  ].filter(s=>s.active).sort((a,b)=>b.weight-a.weight).slice(0,3);
+  return {cls,p0,p1,p2,sigs};
+}
+
+const SIG_NAMES = {
+  en:{ absence:'Absence Rate (1wk)', absTrend:'Absence Trend', overtime:'Overtime Rate (1wk)', otTrend:'Overtime Trend', shiftoff:'Shift Refusal Rate' },
+  it:{ absence:'Tasso di Assenza (1sett)', absTrend:'Trend Assenze', overtime:'Tasso Straordinario (1sett)', otTrend:'Trend Straordinario', shiftoff:'Tasso Rifiuto Turni' }
+};
+
+// Internal staff pool — demo data from stable wards
+const INTERNAL_POOL = {
+  1: [ // AT_RISK: 3 nurses from stable wards
+    { id:'N-0047', ward:{ en:'Orthopaedics', it:'Ortopedia' },      avail:14 },
+    { id:'N-0083', ward:{ en:'Gen. Medicine', it:'Medicina Gen.' }, avail:12 },
+    { id:'N-0029', ward:{ en:'Gen. Medicine', it:'Medicina Gen.' }, avail:14 },
+  ],
+  2: [ // CRISIS: 5 nurses from stable wards
+    { id:'N-0047', ward:{ en:'Orthopaedics', it:'Ortopedia' },        avail:14 },
+    { id:'N-0083', ward:{ en:'Gen. Medicine', it:'Medicina Gen.' },   avail:12 },
+    { id:'N-0029', ward:{ en:'Gen. Medicine', it:'Medicina Gen.' },   avail:14 },
+    { id:'N-0112', ward:{ en:'Orthopaedics', it:'Ortopedia' },        avail:10 },
+    { id:'N-0156', ward:{ en:'Emergency Dept', it:'Pronto Soccorso' },avail:8  },
+  ],
+};
+
+function updatePredictor() {
+  const f = { absence:+SL.absence.value, overtime:+SL.overtime.value, otTrend:+SL.otTrend.value, shiftoff:+SL.shiftoff.value, absTrend:+SL.absTrend.value };
+  const l = currentLang;
+  LBL.absence.textContent  = f.absence.toFixed(1)+'%';
+  LBL.overtime.textContent = f.overtime.toFixed(1)+'%';
+  LBL.otTrend.textContent  = (f.otTrend>=0?'+':'')+f.otTrend.toFixed(1)+'%';
+  LBL.shiftoff.textContent = f.shiftoff.toFixed(3);
+  LBL.absTrend.textContent = (f.absTrend>=0?'+':'')+f.absTrend.toFixed(1)+'%';
+
+  const r  = predict(f);
+  const ic = RISK_ICON_STYLE[r.cls];
+  const iconEl = document.getElementById('risk-icon');
+  iconEl.style.cssText = `background:${ic.bg};color:${ic.color};font-size:24px;font-weight:900;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;transition:background .3s,color .3s;`;
+  iconEl.textContent = ic.text;
+
+  const rlKey = r.cls===2?'risk.crisis':r.cls===1?'risk.atrisk':'risk.stable';
+  document.getElementById('risk-label').textContent = T[l][rlKey];
+  document.getElementById('risk-label').style.color = ['var(--green)','var(--amber)','var(--red)'][r.cls>1?2:r.cls<0?0:r.cls+1>1?r.cls:r.cls];
+  const rColors = { 0:'var(--green)', 1:'var(--amber)', 2:'var(--red)' };
+  document.getElementById('risk-label').style.color = rColors[r.cls];
+  document.getElementById('risk-conf').textContent  = `${T[l]['risk.conf']} ${Math.round(Math.max(r.p0,r.p1,r.p2)*100)}%`;
+  document.getElementById('pred-card').style.borderColor = RISK_BORDER[r.cls];
+
+  ['crisis','atrisk','stable'].forEach((k,i) => {
+    const v = [r.p2,r.p1,r.p0][i];
+    document.getElementById('pb-'+k).style.width = Math.round(v*100)+'%';
+    document.getElementById('pp-'+k).textContent = Math.round(v*100)+'%';
+  });
+
+  const dotC = rColors;
+  const flagHTML = ft => ft==='high'
+    ? '<span class="signal-flag flag-high">HIGH</span>'
+    : '<span class="signal-flag flag-up">↑</span>';
+  document.getElementById('top-signals').innerHTML = r.sigs.length
+    ? r.sigs.map(s=>`<div class="signal-chip"><div class="signal-dot" style="background:${dotC[r.cls]}"></div><span class="signal-name">${SIG_NAMES[l][s.key]}</span><span class="signal-val">${s.val}</span>${s.flag?flagHTML(s.flag):''}</div>`).join('')
+    : `<div style="font-size:11px;color:var(--gray)">${T[l]['pred.noSignals']}</div>`;
+
+  const ap = document.getElementById('action-plan');
+  if (r.cls >= 1) {
+    const pool     = INTERNAL_POOL[r.cls];
+    const totalHrs = r.cls===2 ? 280 : 160;
+    const internalHrs = pool.reduce((s,n)=>s+n.avail, 0);
+    const remainHrs   = Math.max(0, totalHrs - internalHrs);
+    const internalCost = Math.round(internalHrs*18.5/50)*50;
+    const otCost       = Math.round(remainHrs*18.5*1.25/50)*50;
+    const agencyCost   = Math.round(totalHrs*35/50)*50;
+    const planTotal    = internalCost + otCost;
+    const saving       = agencyCost - planTotal;
+    ap.classList.add('visible');
+    // Staff chips
+    document.getElementById('staff-chips').innerHTML =
+      pool.map(n=>`<div class="staff-chip">${n.id} · ${n.ward[l]}</div>`).join('');
+    // Tier meta lines
+    document.getElementById('tier1-meta').textContent = `~${internalHrs}h covered · €${internalCost.toLocaleString()} base rate`;
+    document.getElementById('tier2-meta').textContent = remainHrs>0
+      ? `~${remainHrs}h remaining · €${otCost.toLocaleString()}`
+      : (l==='it' ? 'Non necessario — copertura interna sufficiente' : 'Not needed — internal coverage sufficient');
+    document.getElementById('tier3-meta').textContent = `~${totalHrs}h · €${agencyCost.toLocaleString()} ${l==='it'?'se aspetti':'if you wait'}`;
+    document.getElementById('action-save').textContent = '€'+saving.toLocaleString();
+  } else {
+    ap.classList.remove('visible');
+  }
+}
+function dismissSliderHints() {
+  document.getElementById('predictor-inputs').classList.add('used');
+  document.getElementById('drag-hint').classList.add('hidden');
+  Object.values(SL).forEach(s=>s.removeEventListener('input', dismissSliderHints));
+}
+Object.values(SL).forEach(s=>{
+  s.addEventListener('input', dismissSliderHints);
+  s.addEventListener('input', updatePredictor);
+});
+
+function setScenario(s) {
+  const sc = { stable:{absence:5,overtime:12,otTrend:-1,shiftoff:.005,absTrend:-.5}, atrisk:{absence:20,overtime:38,otTrend:2.5,shiftoff:.16,absTrend:3}, crisis:{absence:28,overtime:44,otTrend:6,shiftoff:.27,absTrend:8} }[s];
+  SL.absence.value=sc.absence; SL.overtime.value=sc.overtime; SL.otTrend.value=sc.otTrend; SL.shiftoff.value=sc.shiftoff; SL.absTrend.value=sc.absTrend;
+  updatePredictor();
+}
+
+// ── FEATURE CHART ─────────────────────────────────────────────────────────
+const featData = { labels:['Absence Rate (1wk)','Absence Rate (4wk)','Overtime Rising ★','Absence Trend','Nurses Count','Dual Trend Stress','Avg Consecutive Days','Shiftoff Trend','Night Shift Rate (1wk)','Total Cost (1wk)'], scores:[5.521,2.064,1.467,1.316,0.907,0.782,0.634,0.620,0.596,0.498] };
+const maxScore = featData.scores[0];
+const norm = featData.scores.map(s=>+(s/maxScore*100).toFixed(1));
+new Chart(document.getElementById('feat-chart'),{
+  type:'bar',
+  data:{ labels:featData.labels, datasets:[{ data:norm, backgroundColor:featData.labels.map((l,i)=>i===0?'#2563EB':l.includes('★')?'#10B981':i<4?'#3B82F6':'#475569'), borderRadius:4, borderSkipped:false }] },
+  options:{ indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false}, tooltip:{ callbacks:{label:ctx=>` ${norm[ctx.dataIndex]}% relative importance · gain: ${featData.scores[ctx.dataIndex].toFixed(2)}`}, backgroundColor:'#0D1826', borderColor:'#1E2D4A', borderWidth:1, titleColor:'#fff', bodyColor:'#94a3b8', padding:10 } },
+    scales:{ x:{grid:{color:'#1E2D4A'},ticks:{color:'#64748B',font:{size:11}},max:108}, y:{grid:{display:false},ticks:{color:'#94a3b8',font:{size:11}}} } }
+});
+
+// ── INIT ──────────────────────────────────────────────────────────────────
+const _params = new URLSearchParams(window.location.search);
+const _initLang = (['en','it'].includes(_params.get('lang'))) ? _params.get('lang') : 'en';
+if (_params.get('embed') === '1') {
+  document.querySelector('header').style.display = 'none';
+}
+applyLang(_initLang);
+updatePredictor();
+</script>
+</body>
+</html>

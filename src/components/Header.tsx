@@ -68,6 +68,16 @@ export default function Header() {
             {t.contact}
           </a>
           <Link
+            href={l('/demo')}
+            className="px-4 py-2 text-sm font-medium border border-[#2d8cff] text-[#2d8cff] rounded-lg hover:bg-[#2d8cff]/10 transition flex items-center gap-2"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400"></span>
+            </span>
+            {t.liveDemo}
+          </Link>
+          <Link
             href={l('/#contact')}
             className="px-4 py-2 text-sm font-medium bg-white text-[#0a1929] rounded-lg hover:bg-slate-100 transition"
           >
@@ -115,6 +125,13 @@ export default function Header() {
           <Link href={l('/about')} className="text-slate-400 hover:text-white" onClick={() => setMobileMenuOpen(false)}>{t.about}</Link>
           <Link href={l('/founder')} className="text-slate-400 hover:text-white" onClick={() => setMobileMenuOpen(false)}>{t.founder}</Link>
           <a href={l('/#contact')} className="text-[#2d8cff]" onClick={() => setMobileMenuOpen(false)}>{t.contact}</a>
+          <Link href={l('/demo')} className="py-2 border border-[#2d8cff] text-[#2d8cff] rounded-lg font-medium flex items-center justify-center gap-2" onClick={() => setMobileMenuOpen(false)}>
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400"></span>
+            </span>
+            {t.liveDemo}
+          </Link>
           <Link href={l('/#contact')} className="text-center py-2 bg-white text-[#0a1929] rounded-lg font-medium" onClick={() => setMobileMenuOpen(false)}>
             {t.requestPilot}
           </Link>

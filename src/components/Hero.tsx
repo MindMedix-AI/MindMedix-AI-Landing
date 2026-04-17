@@ -16,40 +16,46 @@ export default function Hero() {
       <div className="absolute bottom-1/4 left-0 w-[400px] h-[400px] bg-[#2d8cff]/3 rounded-full blur-3xl" />
 
       <div className="relative max-w-5xl mx-auto text-center z-10">
-        <div className="flex justify-center mb-8">
+        <div className="flex justify-center mb-4">
           <Image
             src="/logo.png"
             alt="MindMedix AI"
             width={576}
             height={384}
             priority
-            sizes="(max-width: 640px) 320px, (max-width: 1024px) 384px, 512px"
-            style={{ height: 'clamp(240px, 35vw, 400px)', width: 'auto' }}
+            sizes="(max-width: 640px) 140px, (max-width: 1024px) 160px, 180px"
+            style={{ height: 'clamp(100px, 12vw, 160px)', width: 'auto' }}
             className="object-contain"
           />
         </div>
-        <p className="text-sm font-medium text-[#2d8cff] tracking-wider uppercase mb-6">
+        <p className="text-sm font-medium text-[#2d8cff] tracking-wider uppercase mb-4">
           {t.label}
         </p>
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight text-white leading-[1.1] mb-6">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-white leading-[1.1] mb-4">
           {t.headline}
         </h1>
-        <p className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mb-8 leading-relaxed">
+        <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-6 leading-relaxed">
           {t.subheadline}
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-          <Link
-            href="#contact"
-            className="w-full sm:w-auto px-8 py-4 text-base font-medium bg-[#2d8cff] text-white rounded-lg hover:bg-[#2472d9] transition shadow-lg shadow-[#2d8cff]/20"
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
+          <a
+            href="https://calendly.com/hamdysassy7/intro"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full sm:w-auto px-8 py-4 text-base font-medium bg-[#2d8cff] text-white rounded-lg hover:bg-[#2472d9] transition shadow-lg shadow-[#2d8cff]/20 text-center"
           >
             {t.ctaPilot}
-          </Link>
+          </a>
           <Link
-            href="#solution"
-            className="w-full sm:w-auto px-8 py-4 text-base font-medium border border-slate-600 text-slate-300 rounded-lg hover:border-slate-500 hover:bg-white/5 transition"
+            href={`/${locale}/demo`}
+            className="w-full sm:w-auto px-8 py-4 text-base font-medium border border-[#2d8cff] text-[#2d8cff] rounded-lg hover:bg-[#2d8cff]/10 transition flex items-center justify-center gap-2"
           >
-            {t.ctaPartners}
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400"></span>
+            </span>
+            {t.ctaDemo}
           </Link>
         </div>
 
@@ -57,7 +63,7 @@ export default function Hero() {
           {t.authority}
         </p>
 
-        <p className="mt-12 text-sm text-slate-500">
+        <p className="mt-6 text-sm text-slate-500">
           {t.location}
         </p>
       </div>

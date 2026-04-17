@@ -11,6 +11,11 @@ export const translations = {
       founder: 'Fondatore',
       contact: 'Contatti',
       requestPilot: 'Richiedi Pilot',
+      liveDemo: 'Demo Live',
+    },
+    demo: {
+      title: 'MindMedix AI — Demo Live',
+      description: 'Esplora il motore predittivo di MindMedix AI. Visualizza i livelli di rischio per reparto, prova il modello in tempo reale e scopri come prevediamo le crisi 3 settimane prima.',
     },
     hero: {
       label: 'Institutional Workforce Intelligence',
@@ -20,13 +25,14 @@ export const translations = {
       authority: 'Dataset validato · Ospedali Italiani · No Clinical AI · Privacy Standard Enterprise',
       ctaPilot: 'Pianifica Consultazione Strategica',
       ctaPartners: 'Infrastruttura e Metodologia →',
+      ctaDemo: 'Prova la Demo Live →',
       location: 'Sede Legale: Ancona, Italia · Healthcare Operations AI',
     },
     proofBar: {
       stats: [
         { value: '97%', label: 'Crisis recall', sublabel: 'Crisi rilevate in anticipo' },
-        { value: '84.7%', label: 'Accuratezza modello', sublabel: 'Validato su ospedali italiani' },
-        { value: '34', label: 'Ospedali reali', sublabel: 'Dataset Ceschia et al. 2023' },
+        { value: '97.1%', label: 'Accuratezza complessiva', sublabel: 'LOWO cross-validation · 10 fold' },
+        { value: '34', label: 'Reparti reali', sublabel: 'Dataset Ceschia et al. 2023' },
         { value: '€2.400', label: 'Risparmio per crisi', sublabel: 'Agendo 3 settimane prima' },
       ],
     },
@@ -66,7 +72,7 @@ export const translations = {
       dashboardMetrics: ['Continuità Assistenziale', 'Resilienza Forza Lavoro', 'Protezione Budget'],
       realStatCards: [
         { value: '97%', label: 'Recall Crisi', sublabel: 'Rilevamento affidabile e validato' },
-        { value: '84.7%', label: 'Precisione Modello', sublabel: 'Validazione Leave-One-Ward-Out' },
+        { value: '97.1%', label: 'Accuratezza LOWO', sublabel: 'Validazione Leave-One-Ward-Out' },
         { value: '3 Settimane', label: 'Anticipo Operativo', sublabel: 'Tempo per agire preventivamente' },
         { value: '€2.400', label: 'Valore per Crisi', sublabel: 'Risparmio diretto su costi emergenza' },
       ],
@@ -229,6 +235,11 @@ export const translations = {
       founder: 'Founder',
       contact: 'Contact',
       requestPilot: 'Request Pilot',
+      liveDemo: 'Live Demo',
+    },
+    demo: {
+      title: 'MindMedix AI — Live Demo',
+      description: 'Explore the MindMedix AI prediction engine. View per-ward risk levels, try the model in real time, and see how we predict staffing crises 3 weeks in advance.',
     },
     hero: {
       label: 'Institutional Workforce Intelligence',
@@ -238,13 +249,14 @@ export const translations = {
       authority: 'Validated Dataset · Italian Hospitals · No Clinical AI · Enterprise Privacy Standard',
       ctaPilot: 'Schedule Strategic Consultation',
       ctaPartners: 'Infrastructure & Methodology →',
+      ctaDemo: 'Try Live Demo →',
       location: 'HQ: Ancona, Italy · Healthcare Operations AI',
     },
     proofBar: {
       stats: [
         { value: '97%', label: 'Crisis recall', sublabel: 'Staffing crises detected early' },
-        { value: '84.7%', label: 'Model Accuracy', sublabel: 'Validated on real hospital data' },
-        { value: '34', label: 'Real Hospitals', sublabel: 'Dataset Ceschia et al. 2023' },
+        { value: '97.1%', label: 'Overall Accuracy', sublabel: 'LOWO cross-validation · 10 folds' },
+        { value: '34', label: 'Real Hospital Wards', sublabel: 'Dataset Ceschia et al. 2023' },
         { value: '€2,400', label: 'Savings per crisis', sublabel: 'By acting 3 weeks in advance' },
       ],
     },
@@ -284,7 +296,7 @@ export const translations = {
       dashboardMetrics: ['Assistance Continuity', 'Workforce Resilience', 'Budget Protection'],
       realStatCards: [
         { value: '97%', label: 'Crisis Recall', sublabel: 'Reliable and validated detection' },
-        { value: '84.7%', label: 'Model Precision', sublabel: 'Leave-One-Ward-Out validation' },
+        { value: '97.1%', label: 'LOWO Accuracy', sublabel: 'Leave-One-Ward-Out validation' },
         { value: '3 Weeks', label: 'Operational Advance', sublabel: 'Time to act preemptively' },
         { value: '€2,400', label: 'Value per Crisis', sublabel: 'Direct savings on emergency costs' },
       ],
